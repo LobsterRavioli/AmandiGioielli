@@ -2,6 +2,7 @@ package beans;
 
 import java.util.ArrayList;
 
+
 public class OrderBean
 {
 	public OrderBean(){
@@ -11,6 +12,7 @@ public class OrderBean
 		totalDiscount = 0;
 		totalPrice = 0;
 		numProducts = 0;
+		setData(null);
 		items = new ArrayList<OrderDetailBean>();
 	}
 
@@ -77,6 +79,14 @@ public class OrderBean
 		this.numProducts = numProducts;
 	}
 	
+	public java.sql.Date getData() {
+		return data;
+	}
+
+	public void setData(java.sql.Date data) {
+		this.data = data;
+	}
+
 	public ArrayList<OrderDetailBean> getItems()
 	{
 		return this.items;
@@ -93,6 +103,8 @@ public class OrderBean
 	private double totalDiscount;
 	private double totalPrice;
 	private int numProducts;
+	private java.sql.Date data;
+	
 	
 	private ArrayList<OrderDetailBean> items;
 	

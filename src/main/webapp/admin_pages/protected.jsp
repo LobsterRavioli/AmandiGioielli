@@ -9,18 +9,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Protected Page</title>
-</head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Protected Page</title>
+   	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
+	</head>
 <body>
-<h1>Welcome to the Protected Page</h1>
-Congratulations. You have accessed a protected document.
-<br><br>
-<%= language %><br>
-<%= country%><br>
+	<h1>Welcome to the Protected Page</h1>
+	Congratulations. You have accessed a protected document.
+	<br><br>
+	<%= language %><br>
+	<%= country%><br>
 
-<form action="<%=request.getContextPath()%>/LogOutControl" method="post" > 
-     <input type="submit" value="Logout"/>
+	<form action="<%=request.getContextPath()%>/LogOutControl" method="post" > 
+	     <input type="submit" value="Logout"/>
 </form> 
 </body>
 </html>

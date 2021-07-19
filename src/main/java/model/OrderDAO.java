@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -51,6 +52,7 @@ public class OrderDAO implements GenericDAO<OrderBean>
 				bean.setTotalPrice(rs.getDouble("total_price"));
 				bean.setNumProducts(rs.getInt("n_products"));
 				bean.setStatus(rs.getString("status"));
+				bean.setData(rs.getDate("data"));
 			}
 
 			Utility.print(bean.toString());
@@ -106,6 +108,7 @@ public class OrderDAO implements GenericDAO<OrderBean>
 				bean.setTotalPrice(rs.getDouble("total_price"));
 				bean.setNumProducts(rs.getInt("n_products"));
 				bean.setStatus(rs.getString("status"));
+				bean.setData(rs.getDate("data"));
 				orders.add(bean);
 			}
 		} 
@@ -134,20 +137,37 @@ public class OrderDAO implements GenericDAO<OrderBean>
 		PreparedStatement preparedStatement = null;
 		OrderDetailsDAO model = new OrderDetailsDAO(ds);
 
-		String insertSQL = "INSERT INTO orders (user_id,destination,total_discount,total_price,n_products,status) VALUES (?,?,?,?,?,?)";
-		
+		String insertSQL = "INSERT INTO orders (order_id, user_id,destination,total_discount,total_price,n_products,status, data) VALUES (?,?,?,?,?,?,?,?)";
+		String getMaxKey = "SELECT MAX(order_id) FROM orders";
+		int orderId = 0;
 		try 
 		{
 			connection = ds.getConnection();
-			connection.setAutoCommit(false);
-			preparedStatement = connection.prepareStatement(insertSQL);
+
 			
-			preparedStatement.setInt(1, order.getUserId());
-			preparedStatement.setString(2, order.getDestination());
-			preparedStatement.setDouble(3, order.getTotalDiscount());
-			preparedStatement.setDouble(4, order.getTotalPrice());
-			preparedStatement.setInt(5, order.getNumProducts());
-			preparedStatement.setString(6, order.getStatus());
+			
+			Statement smt = connection.createStatement();
+			
+			ResultSet rs = smt.executeQuery(getMaxKey);
+			
+			while(rs.next())
+			{
+				orderId = rs.getInt(1) + 1;
+				order.setId(orderId);
+			}
+			
+			
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setInt(1, order.getId());
+			preparedStatement.setInt(2, order.getUserId());
+			preparedStatement.setString(3, order.getDestination());
+			preparedStatement.setDouble(4, order.getTotalDiscount());
+			preparedStatement.setDouble(5, order.getTotalPrice());
+			preparedStatement.setInt(6, order.getNumProducts());
+			preparedStatement.setString(7, order.getStatus());
+			//data odierna
+			long millis = System.currentTimeMillis();
+			preparedStatement.setDate(8, new java.sql.Date(millis));;
 			
 			Utility.print("doSave: " + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -155,11 +175,12 @@ public class OrderDAO implements GenericDAO<OrderBean>
 			for(OrderDetailBean product: order.getItems())
 			{
 				product.setOrderId(order.getId());
-				product.toString();
+				Utility.print(product.toString());
 				model.doSave(product);
+				System.out.println("Fine ciclo");
 			}
 			
-			connection.commit();
+
 		}
 		
 		finally 
@@ -186,7 +207,7 @@ public class OrderDAO implements GenericDAO<OrderBean>
 		PreparedStatement preparedStatement = null;
 		
 		String updateSQL = "UPDATE orders SET user_id = ?, destination = ?, total_discount = ?, "
-				+ "total_price = ?, n_products = ?, status = ? WHERE order_id = ?";
+				+ "total_price = ?, n_products = ?, status = ? WHERE order_id = ?, data = ?";
 		
 		try 
 		{
@@ -201,6 +222,7 @@ public class OrderDAO implements GenericDAO<OrderBean>
 			preparedStatement.setInt(5, order.getNumProducts());
 			preparedStatement.setString(6, order.getStatus());
 			preparedStatement.setInt(7, order.getId());
+			preparedStatement.setDate(8, order.getData());
 			
 		
 			Utility.print("doUpdate: " + preparedStatement.toString());
@@ -297,6 +319,7 @@ public class OrderDAO implements GenericDAO<OrderBean>
 				bean.setTotalPrice(rs.getDouble("total_price"));
 				bean.setNumProducts(rs.getInt("n_products"));
 				bean.setStatus(rs.getString("status"));
+				bean.setData(rs.getDate("data"));
 				orders.add(bean);
 			}
 		} 

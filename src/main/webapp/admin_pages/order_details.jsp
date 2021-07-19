@@ -12,7 +12,7 @@
 </head>
 <body>
 	<%@include file="../fragments/header.jsp" %>
-	<%@include file="../fragments/menu.jsp" %>
+
 	<%	
 		Collection<OrderDetailBean> ordersDetail = (Collection<OrderDetailBean>) request.getAttribute("ordersDetails");
 		LinkedList<OrderDetailBean> list =(LinkedList) ordersDetail;

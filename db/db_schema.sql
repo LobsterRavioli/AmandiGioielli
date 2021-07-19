@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS amandigioielli;
+CREATE DATABASE amandigioielli;
+USE amandigioielli;
+
 create table if not exists admin
 (
 	admin_id int auto_increment
@@ -104,17 +108,18 @@ create index user_id
 
 create table if not exists orders
 (
-	order_id int auto_increment
+	order_id int
 		primary key,
 	user_id int not null,
 	destination varchar(100) not null,
 	total_discount double null,
 	total_price double not null,
 	n_products int not null,
-	status varchar(50) default 'Ordine Effettuato' null,
+	data DATE NOT NULL,
+	status varchar(50) default 'Ordine Effettuato',
 	constraint orders_ibfk_1
 		foreign key (user_id) references user (user_id)
-			on update cascade
+			on update CASCADE
 );
 
 create table if not exists order_details
@@ -188,3 +193,7 @@ create table if not exists wishlist_item
 		foreign key (wishlist_id) references wishlist (wishlist_id)
 			on update cascade on delete cascade
 );
+
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate) VALUES ("Orecchini Ginkgo","Orecchini realizzati a mano in Argento Sterling 925 rodiato","",3,150, 22);
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate) VALUES ("Anello Ginkgo","Anello realizzato a mano in Argento Sterling 925 dorato","",2,80, 22);
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate) VALUES ("Orecchini Sunflowers","Orecchini realizzati a mano in Argento Sterling 925 rosato","",1,99, 22);

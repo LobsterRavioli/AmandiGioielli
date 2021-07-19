@@ -77,7 +77,37 @@
 		
 		<div class="header-icons">
 			<a class="search-btn" title="Cerca"><img src="<%=request.getContextPath()%>/images/icons/search.png"></a>
-			<a href="<%=request.getContextPath()%>/common_pages/login_user.jsp" title="Account"><img src="<%=request.getContextPath()%>/images/icons/user.png"></a>
+			
+			<%
+			if(session.getAttribute("user")==null && session.getAttribute("adminRoles")==null ) 
+			  {
+			%>
+
+			<a href="<%=request.getContextPath()%>/common_pages/login_user.jsp" title="Login"><img src="<%=request.getContextPath()%>/images/icons/user.png"></a>
+					
+			
+			<%
+			}
+			%>
+			
+			<%
+			if(session.getAttribute("user")!=null) 
+		  	{
+			%>
+			<a href="<%=request.getContextPath()%>/user_pages/dashboard.jsp" title="Dashboard account"><img src="<%=request.getContextPath()%>/images/icons/user.png"></a>
+			
+			<%
+			}
+			%>
+			<%
+			if(session.getAttribute("adminRoles")!=null) 
+		  	{
+			%>
+			<a href="<%=request.getContextPath()%>/admin_pages/dashboard.jsp" title="Dashboard account"><img src="<%=request.getContextPath()%>/images/icons/settings.png"></a>
+			
+			<%
+			}
+			%>
 			<a href="#" title="Wishlist"><img src="<%=request.getContextPath()%>/images/icons/wishlist.png"></a>
 			<div class="shopping-bag">
 				<a href="<%=request.getContextPath()%>/common_pages/cart.jsp"><img src="<%=request.getContextPath()%>/images/icons/shopping-bag.png" title="Carrello"></a>

@@ -153,7 +153,7 @@ public class OrderDetailsDAO implements GenericDAO<OrderDetailBean>
 		try 
 		{
 			connection = ds.getConnection();
-			connection.setAutoCommit(false);
+
 			preparedStatement = connection.prepareStatement(insertSQL);
 			
 			preparedStatement.setInt(1, orderDetails.getOrderId());

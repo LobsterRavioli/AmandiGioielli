@@ -64,14 +64,16 @@ public class CartControl extends HttpServlet {
 
 		case ("buy"):
 
-		    if (cart == null || cart.getItems().isEmpty()) {
-			request.setAttribute("message", "Non hai articoli nel carrello!");
-			break;
-		    } else {
-			RequestDispatcher dispatcher = this.getServletContext()
-				.getRequestDispatcher("/user_pages/summary_order.jsp");
-			dispatcher.forward(request, response);
-			return;
+		    if (cart == null || cart.getItems().isEmpty()) 
+		    {
+				request.setAttribute("message", "Non hai articoli nel carrello!");
+				break;
+		    } 
+		    else 
+		    {
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/user_pages/summary_order.jsp");
+				dispatcher.forward(request, response);
+				return;
 		    }
 
 		}

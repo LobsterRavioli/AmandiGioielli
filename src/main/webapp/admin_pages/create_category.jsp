@@ -5,6 +5,7 @@
 <head>
     <script type="text/javascript"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 <meta charset="UTF-8">
 <title>Creazione categoria</title>
 </head>

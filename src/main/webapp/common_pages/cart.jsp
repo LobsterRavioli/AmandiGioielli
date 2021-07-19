@@ -6,12 +6,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrello</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css" type="text/css">
+    <title>Amandi Gioielli - Carrello</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" type="text/css">
+   	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/all.min.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
 	<%@include file="../fragments/header.jsp" %>
-	<%@include file="../fragments/menu.jsp" %>
 	<% 
 	 	Cart cart = (Cart)session.getAttribute("cart");
 		
@@ -74,7 +79,7 @@
 					else
 					{
 				%>
-						<a href="<%=response.encodeURL(request.getContextPath()+"/common_pages/login.jsp")%>">Acquista</a>
+						<a href="<%=response.encodeURL(request.getContextPath()+"/common_pages/login_user.jsp")%>">Acquista</a>
 				<%
 					}
 				%>
@@ -99,7 +104,6 @@
 		}
 	%>	
 	
-	<div class="spacer-footer"><br> </div>
 	
 	<%@include file="../fragments/footer.jsp" %>
 </body>

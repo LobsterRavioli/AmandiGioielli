@@ -24,6 +24,7 @@
     <title>Dashboard</title>
   	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/admin_style.css" type="text/css">
+   	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 </head>
 <body>
 

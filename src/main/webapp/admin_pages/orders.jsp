@@ -24,6 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amandi Gioielli - Ordini effettuati</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/admin_style.css" type="text/css">
+   	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 </head>
 <body>
 	<%@include file="../fragments/admin_menu.jsp" %>

@@ -58,10 +58,11 @@ public class RegistrationControl extends HttpServlet {
 	    else if (model.doRetrieve(user) == null) {
 		try {
 		    model.doSave(user);
+		    user = model.doRetrieve(user);
 		} catch (SQLException e) {
 		    // se l'utente � gi� registrato ma prova a registrarsi nuovamente con la stessa
 		    // mail ma password diversa
-		    request.setAttribute("message", "Sei gi� un utente registrato");
+		    request.setAttribute("message", "Sei già un utente registrato");
 		    response.sendRedirect(request.getContextPath() + "/common_pages/login.jsp");
 		    return;
 		}

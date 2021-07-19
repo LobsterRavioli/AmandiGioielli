@@ -1,6 +1,14 @@
+<%@page import="beans.Cart"%>
 <header>
 
+<%
+	Cart cart2 =(Cart) session.getAttribute("cart");
+	int size = 0;
+	if(cart2 != null){
+	    size = cart2.getTotalQuantity();
+	}
 
+%>
 		
 		
 		<nav class="mobile-menu">
@@ -112,7 +120,7 @@
 			<div class="shopping-bag">
 				<a href="<%=request.getContextPath()%>/common_pages/cart.jsp"><img src="<%=request.getContextPath()%>/images/icons/shopping-bag.png" title="Carrello"></a>
 				<span class="cart-basket">
-					0
+					<%=size%>
 				</span>
 			</div>
 		</div>

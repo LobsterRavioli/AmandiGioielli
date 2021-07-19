@@ -27,7 +27,7 @@ public class ProductControl extends HttpServlet {
 
 	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	GenericDAO<ProductBean> model = new ProductDAO(ds);
-	
+
 	HttpSession session = request.getSession();
 
 	Cart cart = (Cart) session.getAttribute("cart");

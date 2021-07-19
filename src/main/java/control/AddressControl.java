@@ -40,6 +40,14 @@ public class AddressControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
 	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	AddressDAO addressModel = new AddressDAO(ds);
 	HttpSession session = request.getSession();
@@ -77,16 +85,6 @@ public class AddressControl extends HttpServlet {
 	}
 	map.put("isValid", isValid);
 	write(response, map);
-    }
-
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	// TODO Auto-generated method stub
-	doGet(request, response);
     }
 
     private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {

@@ -30,7 +30,6 @@ public class AdminProductControl extends HttpServlet {
 	GenericDAO<CategoryBean> model2 = new CategoryDAO(ds);
 
 	String sort = request.getParameter("sort");
-
 	String action = request.getParameter("action");
 
 	try {

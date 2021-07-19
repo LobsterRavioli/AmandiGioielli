@@ -88,6 +88,7 @@
 	<br>
 	
 	<%@include file="../fragments/footer.jsp" %>
+
 		
 </body>
 </html>

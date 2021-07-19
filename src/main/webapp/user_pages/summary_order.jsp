@@ -71,8 +71,8 @@
 				
 	%>	
 		<div id ="displayResult">
-				<p> <%=address.getStreetAddress() + " " + address.getAddressNumber() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %> </p> 
-				<input type="radio" name="radios" value="<%=address.getStreetAddress() + " " + address.getAddressNumber() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %>"
+				<p> <%=address.getStreetAddress() + " " + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %> </p> 
+				<input type="radio" name="radios" value="<%=address.getStreetAddress() + " "  + " " + address.getCity() + " " + address.getProvince()  %>"
 				 checked>
 		</div>
 
@@ -95,7 +95,7 @@
 	         class="form-control" 
 	         id="street"
 	         name="street"
-	         placeholder="Street">
+	         placeholder="Via">
 	  
 	  <input type="text"
 	         class="form-control" 
@@ -103,11 +103,6 @@
 	         name="city"
 	         placeholder="Città">
 	         
-	  <input type="text"
-	         class="form-control" 
-	         id="addressNumber"
-	         name="addressNumber"
-	         placeholder="Civico">
 	  
 	  <input type="text" 
 	         class="form-control" 

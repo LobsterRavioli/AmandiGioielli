@@ -60,21 +60,20 @@ public class AddressControl extends HttpServlet {
 	String zip = (String) request.getParameter("zip");
 	String phone = (String) request.getParameter("phone");
 	String city = (String) request.getParameter("city");
-	String addressNumber = (String) request.getParameter("addressNumber");
 
 	map.put("street", street);
 	map.put("province", province);
 	map.put("zip", zip);
 	map.put("phone", phone);
 	map.put("city", city);
-	map.put("addressNumber", addressNumber);
+
 	address.setZip(zip);
 	address.setCity(city);
 	address.setPhone(phone);
 	address.setProvince(province);
 	address.setPhone(phone);
+	address.setStreetAddress(street);
 	address.setUserId(user.getId());
-	address.setAddressNumber(Integer.parseInt(addressNumber));
 
 	boolean isValid = true;
 	try {

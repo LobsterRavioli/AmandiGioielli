@@ -62,6 +62,8 @@ public class ProductControl extends HttpServlet {
 		    if (bean != null && !bean.isEmpty()) {
 			cart.addItem(bean);
 			request.setAttribute("message", "Prodotto " + bean.getName() + " aggiunto al carrello.");
+		    } else {
+			request.setAttribute("message", "Prodotto " + bean.getName() + " non disponibile.");
 		    }
 		}
 

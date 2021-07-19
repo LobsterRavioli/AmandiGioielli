@@ -65,7 +65,7 @@ public class AdminProductControl extends HttpServlet {
 		    product.setCode(Integer.parseInt(id));
 
 		    ProductBean bean = model.doRetrieve(product);
-		    if (bean != null && !bean.isEmpty()) {
+		    if (bean != null) {
 			model.doDelete(bean);
 			request.setAttribute("message", "Prodotto " + bean.getName() + " rimosso con successo.");
 		    }

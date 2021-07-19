@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="011bbeba-6352-4a6a-bde2-a60589d015cb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../src/main/java/control/AddressControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/control/AddressControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/classes/beans/ProductBean.class" beforeDir="false" afterPath="$PROJECT_DIR$/../build/classes/beans/ProductBean.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/classes/control/AdminProductControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../build/classes/control/AdminProductControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/classes/control/ProductControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../build/classes/control/ProductControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/beans/ProductBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/beans/ProductBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/main/java/control/AdminProductControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/control/AdminProductControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/main/java/control/ProductControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/control/ProductControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/control/RegistrationControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/control/RegistrationControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/model/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/model/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/webapp/META-INF/context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/webapp/META-INF/context.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/webapp/admin_pages/catalogue.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/webapp/admin_pages/catalogue.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/webapp/common_pages/catalogue.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/webapp/common_pages/catalogue.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/webapp/fragments/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/webapp/fragments/header.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

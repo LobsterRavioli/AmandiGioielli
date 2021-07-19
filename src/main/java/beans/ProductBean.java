@@ -69,7 +69,8 @@ public class ProductBean implements Serializable {
     }
 
     public boolean isEmpty() {
-	return code == -1;
+
+	return quantity == 0;
     }
 
     @Override

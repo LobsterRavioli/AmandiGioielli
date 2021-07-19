@@ -1,0 +1,79 @@
+package beans;
+
+import java.util.ArrayList;
+
+
+public class Cart
+{
+	ArrayList<ProductBean> items;
+
+	public Cart() 
+	{
+		items = new ArrayList<ProductBean>();
+	}
+
+	public void addItem(ProductBean item) 
+    {
+        if(items.contains(item))
+        {
+            ProductBean product = (ProductBean) items.get(items.indexOf(item));
+            product.setQuantity(product.getQuantity() + 1);
+            return;
+        }
+
+        ((ProductBean) item).setQuantity(1);
+        items.add(item);
+    }
+
+	public void deleteItem(ProductBean item) 
+	{
+		items.remove(item);
+	}
+	
+	public void removeOneItem(ProductBean item)
+	{
+        if(items.contains(item))
+        {
+            ProductBean product = (ProductBean) items.get(items.indexOf(item));
+            
+            if(product.getQuantity() - 1 > 0)
+            	product.setQuantity(product.getQuantity() - 1);
+            else
+            	deleteItem(item);  
+        }
+        
+        else
+        	deleteItem(item);
+
+	}
+	public ArrayList<ProductBean> getItems()
+	{
+		return items;
+	}
+	
+	public int getTotalQuantity()
+	{
+		int tot=0;
+		for(ProductBean product : items)
+		{
+			tot+=product.getQuantity();
+		}
+		return tot;
+	}
+
+	public void deleteItems() 
+	{
+		items.clear();
+	}
+	
+	public double totalValue() 
+	{
+		double tot = 0;
+		for(ProductBean item : items) 
+			tot += item.getPrice();
+		
+		
+		return tot;
+	}
+	
+}

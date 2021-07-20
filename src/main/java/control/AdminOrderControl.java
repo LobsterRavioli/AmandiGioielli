@@ -1,7 +1,7 @@
 package control;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,11 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import beans.OrderBean;
-import beans.UserBean;
-import model.OrderDAO;
-import model.UserDAO;
 
+import model.OrderDAO;
 
 @WebServlet("/AdminOrderControl")
 public class AdminOrderControl extends HttpServlet {
@@ -22,29 +19,36 @@ public class AdminOrderControl extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 
-	try {
-
-	    OrderDAO orderModel = new OrderDAO(ds);
-	    Collection<OrderBean> orders = orderModel.doRetrieveAll("user_id");
-	    request.setAttribute("orders", orders);
-	    
-	    UserDAO userModel = new UserDAO(ds);
-	    Collection<UserBean> users = userModel.doRetrieveAll("user_id");
-	    request.setAttribute("users", users);
-
-	} catch (Exception e) {
-	    // TODO: handle exception
-	}
-
-	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin_pages/orders.jsp");
-	dispatcher.forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	doGet(request, response);
+
+	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+	OrderDAO orderModel = new OrderDAO(ds);
+
+	String costumerId = request.getParameter("customer-id");
+	String startDate = request.getParameter("start-date");
+	String endDate = request.getParameter("end-date");
+	String submit = request.getParameter("submit");
+
+	try {
+	    request.removeAttribute("orders");
+	    if (startDate != null && endDate != null) {
+		request.setAttribute("orders",
+			orderModel.retrieveByData(null, Date.valueOf(startDate), Date.valueOf(endDate)));
+	    } else if (costumerId != null) {
+		request.setAttribute("orders", orderModel.retrieveByUserId(null, Integer.parseInt(costumerId)));
+	    }
+	} catch (NumberFormatException e) {
+	    System.out.println("Error: " + e.getMessage());
+	} catch (Exception e) {
+	    System.out.println("Error: " + e.getMessage());
+	}
+
+	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin_pages/orders.jsp");
+	dispatcher.forward(request, response);
     }
 
 }

@@ -7,11 +7,7 @@
  
  	String error = (String)request.getAttribute("error");
  	
- 	if(orders == null && error == null) 
- 	{
- 		response.sendRedirect(response.encodeRedirectURL("../AdminOrderControl"));
- 		return;
- 	}
+
  	
  %>   
    
@@ -27,8 +23,27 @@
    	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 </head>
 <body>
-	<%@include file="../fragments/admin_menu.jsp" %>
-	<%@include file="../fragments/admin_header.jsp" %>
+	
+		<form action="<%= request.getContextPath()%>/AdminOrderControl" method="POST">	
+				<p>Ricerca per data</p>
+				<br>
+				<label for="start-date">Da</label>
+				<input type="date" id="start-date" name="start-date">
+				<label for="end-date">a</label>
+				<input type="date" id="end-date" name="end-date">
+				<br><br>
+				<input type="submit" name="submit" value="date">
+			</form>
+			<br>
+			<form action="<%= request.getContextPath()%>/AdminOrderControl" method="POST">	
+				<p>Ricerca per codice utente</p>
+				<br>
+				<label for="customer-id">ID: </label>
+				<input type="text" id="customer-id" name="customer-id" value="">
+				
+				<br><br>
+				<input type="submit" name="submit" value="id">
+			</form>
 	
 <div class = "main-content">
 	<div class = "table-content">
@@ -44,20 +59,19 @@
 			<%
 			if(orders != null && orders.size() > 0) 
 			{
-				if(users != null && users.size() > 0) 
-				{
-					Iterator<?> it = orders.iterator();
-					Iterator<?> it2 = users.iterator();
-					while(it.hasNext() && it2.hasNext())
+			    
+			    Iterator<?> it = orders.iterator();
+
+					while(it.hasNext())
 					{
-						OrderBean bean = (OrderBean) it.next();
-						UserBean u_bean = (UserBean) it2.next();
+					    OrderBean bean = (OrderBean) it.next();
 						
 			%>
 						<tr>
-							<td><%=u_bean.getId()%></td>
-							<td><%=bean.getId()%></td>
+							<td><%=bean.getUserId()%></td>
+							<td> <%=bean.getId()%></td>
 							<td><%=bean.getTotalPrice()%></td>
+							<td><%=bean.getStatus()%></td>
 		
 							<td>
 								<a href="<%= request.getContextPath() + "/AdminOrderControl?order_id=" + bean.getId() %>" class="catalogue-icons">
@@ -67,7 +81,7 @@
 							<td>
 						</tr>
 			<%
-					}
+					
 				}
 			}
 			%>

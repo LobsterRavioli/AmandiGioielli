@@ -63,7 +63,7 @@ public class RegistrationControl extends HttpServlet {
 		    // se l'utente � gi� registrato ma prova a registrarsi nuovamente con la stessa
 		    // mail ma password diversa
 		    request.setAttribute("message", "Sei già un utente registrato");
-		    response.sendRedirect(request.getContextPath() + "/common_pages/login.jsp");
+		    response.sendRedirect(request.getContextPath() + "/common_pages/login_user.jsp");
 		    return;
 		}
 
@@ -74,7 +74,7 @@ public class RegistrationControl extends HttpServlet {
 
 	    else if (model.doRetrieve(user) != null) {
 		request.setAttribute("message", "Sei gi� un utente registrato");
-		response.sendRedirect(request.getContextPath() + "/common_pages/login.jsp");
+		response.sendRedirect(request.getContextPath() + "/common_pages/login_user.jsp");
 		return;
 	    }
 

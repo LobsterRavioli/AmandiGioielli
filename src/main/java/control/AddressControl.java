@@ -1,8 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,7 +41,6 @@ public class AddressControl extends HttpServlet {
 	AddressDAO addressModel = new AddressDAO(ds);
 	HttpSession session = request.getSession();
 	UserBean user = (UserBean) session.getAttribute("user");
-	Map<String, Object> map = new HashMap<String, Object>();
 
 	AddressBean address = new AddressBean();
 	String street = (String) request.getParameter("street");
@@ -68,7 +65,7 @@ public class AddressControl extends HttpServlet {
 	    isValid = false;
 	    System.out.print(e);
 	}
-	map.put("isValid", isValid);
+
 	write(response, address);
 
     }

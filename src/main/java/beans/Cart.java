@@ -20,7 +20,8 @@ public class Cart
             product.setQuantity(product.getQuantity() + 1);
             return;
         }
-
+        
+        
         ((ProductBean) item).setQuantity(1);
         items.add(item);
     }
@@ -59,6 +60,18 @@ public class Cart
 			tot+=product.getQuantity();
 		}
 		return tot;
+	}
+	
+	public int getProductQuantity(int id)
+	{
+		int qty = 0;
+		for(ProductBean product : items)
+		{
+			if(product.getCode() == id)
+				qty=product.getQuantity();
+		}
+		
+		return qty;
 	}
 
 	public void deleteItems() 

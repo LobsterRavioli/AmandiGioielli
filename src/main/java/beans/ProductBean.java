@@ -8,124 +8,124 @@ public class ProductBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public ProductBean() {
-	categories = new ArrayList<CategoryBean>();
-	code = -1;
-	name = "";
-	description = "";
-	shortDescription = "";
-	price = 0.0;
-	quantity = 0;
-	taxRate = 0.0;
-	discount = 0.0;
-	isActive = true;
+		categories = new ArrayList<CategoryBean>();
+		code = -1;
+		name = "";
+		description = "";
+		shortDescription = "";
+		price = 0.0;
+		quantity = 0;
+		taxRate = 0.0;
+		discount = 0.0;
+		isActive = true;
     }
 
     public int getCode() {
-	return code;
+    	return code;
     }
 
     public void setCode(int code) {
-	this.code = code;
+    	this.code = code;
     }
 
     public String getName() {
-	return name;
+    	return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+    	this.name = name;
     }
 
     public String getDescription() {
-	return description;
+    	return description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
+    	this.description = description;
     }
 
     public String getShortDescription() {
-	return shortDescription;
+    	return shortDescription;
     }
 
     public void setShortDescription(String shortDescription) {
-	this.shortDescription = shortDescription;
+    	this.shortDescription = shortDescription;
     }
 
     public double getPrice() {
-	return price;
+    	return price;
     }
 
     public void setPrice(double price) {
-	this.price = price;
+    	this.price = price;
     }
 
     public int getQuantity() {
-	return quantity;
+    	return quantity;
     }
 
     public void setQuantity(int quantity) {
-	this.quantity = quantity;
+		this.quantity = quantity;
     }
 
     public boolean isEmpty() {
 
-	return quantity == 0;
+    	return quantity == 0;
     }
 
     @Override
     public boolean equals(Object other) {
-	return (this.getCode() == ((ProductBean) other).getCode());
+    	return (this.getCode() == ((ProductBean) other).getCode());
     }
 
     public boolean equalsName(ProductBean bean) {
-	return (this.getName().equals(bean.getName()));
+    	return (this.getName().equals(bean.getName()));
     }
 
     @Override
     public String toString() {
-	return name + " (" + code + ") " + price + ", " + quantity + ", " + description;
+    	return name + " (" + code + ") " + price + ", " + quantity + ", " + description;
     }
 
     public double getTaxRate() {
-	return taxRate;
+    	return taxRate;
     }
 
     public void setTaxRate(double taxRate) {
-	this.taxRate = taxRate;
+    	this.taxRate = taxRate;
     }
 
     public double getDiscount() {
-	return discount;
+    	return discount;
     }
 
     public void setDiscount(double discount) {
-	this.discount = discount;
+    	this.discount = discount;
     }
 
     public boolean isActive() {
-	return isActive;
+    	return isActive;
     }
 
     public void setActive(boolean isActive) {
-	this.isActive = isActive;
+    	this.isActive = isActive;
     }
 
     public void addCategory(CategoryBean category) {
-	this.categories.add(category);
+    	this.categories.add(category);
     }
 
     public ArrayList<CategoryBean> getCategories() {
-	return categories;
+    	return categories;
 
     }
 
     public void setUrl(String url) {
-	this.url = url;
+    	this.url = url;
     }
 
     public String getUrl() {
-	return url;
+    	return url;
     }
 
     private int code;

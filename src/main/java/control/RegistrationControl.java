@@ -68,6 +68,7 @@ public class RegistrationControl extends HttpServlet {
 		}
 
 		session.setAttribute("user", user);
+		session.setAttribute("userRoles", true);
 		request.setAttribute("message", "Benvenuto" + user.getFirstName());
 	    }
 

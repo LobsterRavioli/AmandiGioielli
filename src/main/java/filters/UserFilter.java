@@ -18,34 +18,33 @@ public class UserFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-	    throws IOException, ServletException {
-	HttpServletRequest hrequest = (HttpServletRequest) request;
-	HttpServletResponse hresponse = (HttpServletResponse) response;
-
-	String loginURI = hrequest.getContextPath() + "/user_pages";
-	boolean loginRequest = hrequest.getRequestURI().startsWith(loginURI);
-	if (loginRequest) {
-	    System.out.println("Check role in the session");
-	    // check the token from session
-	    HttpSession session = hrequest.getSession(false);
-	    boolean loggedIn = session != null && session.getAttribute("userRoles") != null;
-
-	    if (!loggedIn) {
-		System.out.println("Redirect to login form");
-		hresponse.sendRedirect(hrequest.getContextPath() + "/common_pages/login_user.jsp");
-	    } else {
-		// admin resource
-		chain.doFilter(request, response);
-	    }
-	} else {
-	    // accessible resource
-	    chain.doFilter(request, response);
-	}
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest hrequest = (HttpServletRequest) request;
+		HttpServletResponse hresponse = (HttpServletResponse) response;
+	
+		String loginURI = hrequest.getContextPath() + "/user_pages";
+		boolean loginRequest = hrequest.getRequestURI().startsWith(loginURI);
+		if (loginRequest) {
+		    System.out.println("Check role in the session");
+		    // check the token from session
+		    HttpSession session = hrequest.getSession(false);
+		    boolean loggedIn = session != null && session.getAttribute("userRoles") != null;
+	
+		    if (!loggedIn) {
+			System.out.println("Redirect to login form");
+			hresponse.sendRedirect(hrequest.getContextPath() + "/common_pages/login_user.jsp");
+		    } else {
+			// admin resource
+			chain.doFilter(request, response);
+		    }
+		} else {
+		    // accessible resource
+		    chain.doFilter(request, response);
+		}
     }
 
     public void init(FilterConfig fConfig) throws ServletException {
-	System.out.println("Init the filter");
+    	System.out.println("Init the filter");
     }
 
 }

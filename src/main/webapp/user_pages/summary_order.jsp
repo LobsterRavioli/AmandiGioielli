@@ -134,25 +134,26 @@
 	$(document).ready(function() {
 		
 		$("#adressForm").submit(function(){
-					$.ajax({
-						async: "true",
-						url: "update",
-						type: "POST",
-						datatType: "json",
-						data: $("#adressForm").serialize(),
-						success: function(data){
-							var radioButton = document.createElement('input');
-							var paragraph = document.createElement('p');
-							radioButton.name = "radios";
-							radioButton.type = "radio";
-							radioButton.value= data.street + ' ' + data.addressNumber + ' ' + data.city + ' ' + data.province + ' ' + data.zip + ' ' + data.phone;
-							paragraph.append(data.street + ' ' + data.addressNumber + ' ' + data.city + ' ' + data.province + ' ' + data.zip + ' ' + data.phone);
-			
-						
-							$("#displayResult").append(paragraph);
-							$("#displayResult").append(radioButton);
-						}
-					});
+		    event.preventDefault();	
+			$.ajax({
+				async: "true",
+				url: "update",
+				type: "POST",
+				datatType: "json",
+				data: $("#adressForm").serialize(),
+				success: function(data){
+					var radioButton = document.createElement('input');
+					var paragraph = document.createElement('p');
+					radioButton.name = "radios";
+					radioButton.type = "radio";
+					radioButton.value= data.street + ' ' + data.addressNumber + ' ' + data.city + ' ' + data.province + ' ' + data.zip + ' ' + data.phone;
+					paragraph.append(data.street + ' ' + data.addressNumber + ' ' + data.city + ' ' + data.province + ' ' + data.zip + ' ' + data.phone);
+	
+				
+					$("#displayResult").append(paragraph);
+					$("#displayResult").append(radioButton);
+				}
+			});
 				
 	});
 

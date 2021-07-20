@@ -12,6 +12,7 @@ import java.util.Collection;
 import javax.sql.DataSource;
 import beans.OrderBean;
 import beans.OrderDetailBean;
+import beans.ProductBean;
 import utils.Utility;
 
 public class OrderDAO implements GenericDAO<OrderBean>
@@ -136,6 +137,7 @@ public class OrderDAO implements GenericDAO<OrderBean>
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		OrderDetailsDAO model = new OrderDetailsDAO(ds);
+		ProductDAO productModel = new ProductDAO(ds);
 
 		String insertSQL = "INSERT INTO orders (order_id, user_id,destination,total_discount,total_price,n_products,status, data) VALUES (?,?,?,?,?,?,?,?)";
 		String getMaxKey = "SELECT MAX(order_id) FROM orders";
@@ -177,8 +179,15 @@ public class OrderDAO implements GenericDAO<OrderBean>
 				product.setOrderId(order.getId());
 				Utility.print(product.toString());
 				model.doSave(product);
+				ProductBean temp = new ProductBean();
+				temp.setCode(product.getProductId());
+				ProductBean productDB = productModel.doRetrieve(temp);
+				productDB.setQuantity(productDB.getQuantity()-product.getQuantity());
+				productModel.doUpdate(productDB);
 				System.out.println("Fine ciclo");
 			}
+			
+			
 			
 
 		}

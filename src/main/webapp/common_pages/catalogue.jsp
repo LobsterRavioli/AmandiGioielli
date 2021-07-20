@@ -34,9 +34,10 @@
 	<table class="product-table">
 		<tr>
 			<th style="width: 20%">Nome</th>
-			<th style="width: 60%">Descrizione</th>
+			<th style="width: 50%">Descrizione</th>
 			<th style="width: 5%">Prezzo</th>
 			<th style="width: 15%"></th>	
+			<th style="width: 15%">Immagine</th>
 		</tr>
 		<%
 		if(products != null && products.size() > 0) 
@@ -62,6 +63,9 @@
 						<a href="<%=response.encodeURL(request.getContextPath()+"/ProductControl?action=addCart&id=" + bean.getCode())%>" class="catalogue-icons">
 							<img src="<%=request.getContextPath()%>/images/add-to-cart.png" alt="Add product to shopping cart">
 						</a>	
+					</td>
+					<td>
+						<img src="<%=bean.getUrl()%>">
 					</td>
 				</tr>
 	<%

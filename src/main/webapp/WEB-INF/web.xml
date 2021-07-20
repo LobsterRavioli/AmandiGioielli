@@ -13,7 +13,7 @@
   	</resource-ref>
   
   
-  
+  <!--  
 	<filter>
     	<filter-name>AdminFilter</filter-name>
     	<filter-class>filters.AdminFilter</filter-class>
@@ -32,6 +32,6 @@
 	    <url-pattern>/user_pages/*</url-pattern>
 	 </filter-mapping>
 	 
-  
+  -->
  
 </web-app>

@@ -44,7 +44,7 @@
 				<label for="taxRate">Tax Rate:</label><br>
 				<input id="taxRate" name="taxRate" type="number" min="1"  required><br>
 				<label for="file">Immagini da caricare:</label>
-				<input type="file" name="file" id="file" multiple><br>	
+				<input type="file" name="file" id="file"><br>	
 					<select id="format" name="format" size="2" required="required">
 					  <option value=".png">.png</option>
 					  <option value=".jpeg">.jpeg</option>

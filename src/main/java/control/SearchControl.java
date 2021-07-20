@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,30 +24,47 @@ public class SearchControl extends HttpServlet {
      
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException 
     {
-             
-        //JsonArray productsJson = new JsonArray();
-        String productsJson = "";
+       
         DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
         ProductDAO model = new ProductDAO(ds);
-        String query = request.getParameter("partialName");
+        String query = request.getParameter("search");
+        String action = request.getParameter("action");
         Collection<ProductBean> products = null;
         
         if(query != null) {
             
-            Utility.print("SEARCH QUERY: " + query);
+        	if(action.equals("admin"))
+        	{
+        		Utility.print("SEARCH QUERY: " + query);
             
-            try {
-                products = model.retrieveProductsByPartialName(query);
-            } catch(SQLException e) {
-                e.printStackTrace();
-            }
-               
-            productsJson = new Gson().toJson(products);
+        		try 
+        		{
+        			products = model.retrieveProductsByPartialName(query);
+        			request.setAttribute("products", products);
+        		} 
+        		catch(SQLException e) 
+        		{
+        			e.printStackTrace();
+        		}
+        	}
+        	
+        	else if(action.equals("common"))
+        	{
+        		try 
+        		{
+        			products = model.retrieveProductsByPartialName(query);
+        			request.setAttribute("products", products);
+        		} 
+        		catch(SQLException e) 
+        		{
+        			e.printStackTrace();
+        		}
+        	}
+
         }
         
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(productsJson); 
+    	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/"+action+"_pages/catalogue.jsp");
+    	dispatcher.forward(request, response);
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException 

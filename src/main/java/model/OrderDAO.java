@@ -190,7 +190,6 @@ public class OrderDAO implements GenericDAO<OrderBean> {
 		bean.setData(rs.getDate("data"));
 		orders.add(bean);
 	    }
-	    connection.commit();
 	} finally {
 	    try {
 		if (preparedStatement != null)
@@ -223,8 +222,8 @@ public class OrderDAO implements GenericDAO<OrderBean> {
 	    ResultSet rs = smt.executeQuery(getMaxKey);
 
 	    while (rs.next()) {
-		orderId = rs.getInt(1) + 1;
-		order.setId(orderId);
+	    	orderId = rs.getInt(1) + 1;
+	    	order.setId(orderId);
 	    }
 
 	    preparedStatement = connection.prepareStatement(insertSQL);
@@ -238,21 +237,21 @@ public class OrderDAO implements GenericDAO<OrderBean> {
 	    // data odierna
 	    long millis = System.currentTimeMillis();
 	    preparedStatement.setDate(8, new java.sql.Date(millis));
-	    ;
+	    
 
 	    Utility.print("doSave: " + preparedStatement.toString());
 	    preparedStatement.executeUpdate();
 
 	    for (OrderDetailBean product : order.getItems()) {
-		product.setOrderId(order.getId());
-		Utility.print(product.toString());
-		model.doSave(product);
-		ProductBean temp = new ProductBean();
-		temp.setCode(product.getProductId());
-		ProductBean productDB = productModel.doRetrieve(temp);
-		productDB.setQuantity(productDB.getQuantity() - product.getQuantity());
-		productModel.doUpdate(productDB);
-		System.out.println("Fine ciclo");
+			product.setOrderId(order.getId());
+			Utility.print(product.toString());
+			model.doSave(product);
+			ProductBean temp = new ProductBean();
+			temp.setCode(product.getProductId());
+			ProductBean productDB = productModel.doRetrieve(temp);
+			productDB.setQuantity(productDB.getQuantity() - product.getQuantity());
+			productModel.doUpdate(productDB);
+			System.out.println("Fine ciclo");
 	    }
 
 	}

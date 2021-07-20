@@ -40,8 +40,9 @@
 		
 		<div id="search-overlay" class="overlay">
 			<div class="overlay-content">
-    			<form id="search-container" action="/action_page.php">
+    			<form id="search-container" action="<%=request.getContextPath()%>/Search">
       				<input type="text" placeholder="Cerca..." name="search">
+      				<input type="hidden" name="action" value="common">
       				<button type="submit"><i class="fa fa-search"></i></button>
    				</form>
   			</div>
@@ -61,20 +62,20 @@
 		<nav class="menu">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/common_pages/home.jsp">Home</a></li>
-				<li class="has-children"><a href="<%=request.getContextPath()%>/common_pages/catalogue.jsp">Negozio <i class="fas fa-caret-down"></i></a>
+				<li class="has-children"><a href="<%=request.getContextPath()%>/ProductControl?categoryId=-1">Negozio <i class="fas fa-caret-down"></i></a>
 					<ul class="sub-menu">
-						<li><a href="#">Anelli</a></li>
-						<li><a href="#">Bracciali</a></li>
-						<li><a href="#">Collane & Pendenti</a></li>
-						<li><a href="#">Orecchini</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=1">Anelli</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=2">Bracciali</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=3">Collane & Pendenti</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=4">Orecchini</a></li>
 					</ul>
 				</li>
 				<li class="has-children"><a href="">Collezioni <i class="fas fa-caret-down"></i></a>
 					<ul class="sub-menu">
-						<li><a href="#">Naturalis Mundi</a></li>
-						<li><a href="#">The Blue</a></li>
-						<li><a href="#">Ornamental</a></li>
-						<li><a href="#">Butterfly Effect</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=5">Naturalis Mundi</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=6">The Blue</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=7">Ornamental</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=8">Butterfly Effect</a></li>
 					</ul>
 				</li>
 				<li><a href="">About</a></li>

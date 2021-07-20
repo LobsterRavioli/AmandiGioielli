@@ -44,6 +44,12 @@
 		
 		<h2>Catalogo</h2>
 		<a href= "<%=request.getContextPath()%>/admin_pages/create_product.jsp">Crea nuovo prodotto </a>
+		
+		<form class="search-bar-admin" action="<%=request.getContextPath()%>/Search" method="POST">
+			<input type="text" name="search">
+			<input type="hidden" name="action" value="admin">
+			<input type="submit">
+		</form>
 		<table class="product-table">
 		<thead>
 			<tr>

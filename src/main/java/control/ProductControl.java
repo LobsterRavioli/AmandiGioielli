@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import beans.Cart;
+import beans.CategoryBean;
 import beans.ProductBean;
+import model.CategoryDAO;
 import model.GenericDAO;
 import model.ProductDAO;
 import utils.Utility;
@@ -26,8 +29,7 @@ public class ProductControl extends HttpServlet {
 	    throws ServletException, IOException {
 
 	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-	GenericDAO<ProductBean> model = new ProductDAO(ds);
-
+	ProductDAO model = new ProductDAO(ds);
 	HttpSession session = request.getSession();
 
 	Cart cart = (Cart) session.getAttribute("cart");
@@ -38,10 +40,21 @@ public class ProductControl extends HttpServlet {
 	}
 
 	String sort = request.getParameter("sort");
-
+	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 	String action = request.getParameter("action");
 
 	try {
+		if(categoryId != -1)
+		{
+			CategoryBean catBean = new CategoryBean();
+			catBean.setId(categoryId);
+		    request.removeAttribute("products");
+		    request.setAttribute("products", model.DoRetrieveByCategory(catBean));
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common_pages/catalogue.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+		
 	    if (action != null) 
 	    {
 	    	if (action.equals("details")) 
@@ -133,6 +146,7 @@ public class ProductControl extends HttpServlet {
 	session.setAttribute("cart", cart);
 
 	try {
+
 	    request.removeAttribute("products");
 	    request.setAttribute("products", model.doRetrieveAll(sort));
 	} catch (SQLException e) {

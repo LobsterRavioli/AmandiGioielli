@@ -45,7 +45,7 @@ public class MainContext implements ServletContextListener {
 	}
 
 	context.setAttribute("DataSource", ds);
-	String productsPath = "/Users/tommasosorrentino/Desktop/Progetto/AmandiGioielli/products_images";
+	String productsPath = "G:\\Dazza\\Università\\II ANNO\\II Semestre\\TSW\\AmandiGioielli\\src\\main\\webapp\\images\\products";
 	context.setAttribute("path", productsPath);
 	Utility.print("DataSource creation: " + ds.toString());
 

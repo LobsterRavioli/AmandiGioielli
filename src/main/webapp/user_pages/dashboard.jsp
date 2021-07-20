@@ -40,7 +40,9 @@
 	<p>Cognome:<%=user.getLastName()%></p><br>
 	<p>Email:<%=user.getEmail()%></p><br>
 	<p>Cellulare:<%=user.getPhone()%>
+
 	<h3>Indirizzi:</h3>
+		<div id ="displayResult">
 	<%
 
 			Iterator<?> it = addresses.iterator();
@@ -50,13 +52,80 @@
 			
 				
 	%>	
-		<div id ="displayResult">
-				<p> <%=address.getStreetAddress() + " " + address.getAddressNumber() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %> </p> 
+
+				<p> <%=address.getCity() + " " + address.getStreetAddress() + " " + address.getAddressNumber() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %> </p> 
 					<% 		
 
 			}
 	%>
+	</div>
+		<h3>Metti un nuovo indirizzo:</h3>
+		<form action="" id="addressForm">
+		<div id="result"></div>
+		
+			<input type="text"
+		         class="form-control" 
+		         id="street"
+		         name="street"
+		         placeholder="Via">
+		  
+		  <input type="text"
+		         class="form-control" 
+		         id="city"
+		         name="city"
+		         placeholder="Città">
+		         
+		  
+		  <input type="text" 
+		         class="form-control" 
+		         id="province"
+		         name="province"
+		         placeholder="Provincia">
+		  
+		  <input type="text" 
+		         class="form-control" 
+		         id="zip"
+		         name="zip"
+		         placeholder="Zip">
+		         
+		   <input type="text" 
+		         class="form-control" 
+		         id="phone"
+				 name="phone"
+		         placeholder="Telefono">
+  
+		  <input type="submit" value="form">
 
+		</form>
+	
+
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+		$("#addressForm").submit(function(){
+			
+			event.preventDefault();
+			
+			var form = $(this).closest("#addressForm");  
+
+			$.ajax({
+				async: true,
+				url: "./update",
+				type: "POST",
+				datatType: "json",
+				data: form.serialize(),
+				success: function(data){
+					var paragraph = document.createElement('p');
+					paragraph.append(data.zip + ' ' + data.streetAddress + ' ' + data.city + ' ' + data.province +  ' ' + data.phone);
+					$("#displayResult").append(paragraph);
+				}
+			});
+				
+	});
+	
+});
+	</script>
+	
 	<%@ include file="../fragments/footer.jsp"%>
 </body>
 </html>

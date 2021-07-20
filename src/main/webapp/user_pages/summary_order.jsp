@@ -25,9 +25,9 @@
 	Collection<?> addresses = (Collection<?>) request.getAttribute("addresses");
 	 
  	String error = (String)request.getAttribute("error");
- 	if(addresses == null) 
+ 	if(addresses == null && error == null) 
  	{
- 		response.sendRedirect(request.getContextPath() + "/SummaryOrderControl?action=");
+ 		response.sendRedirect(request.getContextPath() + "/SummaryOrderControl");
  		return;
  	}
  	
@@ -57,6 +57,13 @@
 			}
 		%>
 	</table>
+	
+	<%
+	if(addresses != null)
+		if(addresses.size() > 0){
+		    
+	
+	%>
 	<h2> Indirizzi</h2>
 
 	<form action="<%=request.getContextPath()%>/SummaryOrderControl">
@@ -71,8 +78,8 @@
 				
 	%>	
 		<div id ="displayResult">
-				<p> <%=address.getStreetAddress() + " " + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %> </p> 
-				<input type="radio" name="radios" value="<%=address.getStreetAddress() + " "  + " " + address.getCity() + " " + address.getProvince()  %>"
+				<p> <%=address.getZip() + " " + address.getStreetAddress() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %> </p> 
+				<input type="radio" name="radios" value="<%=address.getZip() + " " + address.getStreetAddress() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %>"
 				 checked>
 		</div>
 
@@ -81,86 +88,57 @@
 
 			}
 	%>
-		<input type="hidden" name="action" value="buy">
+		<input type="hidden" name="action" value="noForm">
 		<input type="submit">
-	</form>
-	
-
-	
-	<h3>Oppure registrane uno nuovo! </h3>
-	<div id="result"></div>
-	
-	<form id="adressForm">
-		<input type="text"
-	         class="form-control" 
-	         id="street"
-	         name="street"
-	         placeholder="Via">
-	  
-	  <input type="text"
-	         class="form-control" 
-	         id="city"
-	         name="city"
-	         placeholder="Città">
-	         
-	  
-	  <input type="text" 
-	         class="form-control" 
-	         id="province"
-	         name="province"
-	         placeholder="Provincia">
-	  
-	  <input type="text" 
-	         class="form-control" 
-	         id="zip"
-	         name="zip"
-	         placeholder="Zip">
-	         
-	   <input type="text" 
-	         class="form-control" 
-	         id="phone"
-			 name="phone"
-	         placeholder="Telefono">
-	       
-	  <input type="submit" value="Registra indirizzo">
-	
-	</form>
-
-	  
-
-
-<script>
-
-	$(document).ready(function() {
+		</form>
+	<%	
+		}
+		else{
+	%>
+		<form action="<%=request.getContextPath()%>/SummaryOrderControl">
+		<h3>Registra un indirizzo! </h3>
+		<div id="result"></div>
 		
-		$("#adressForm").submit(function(){
-		    event.preventDefault();	
-			$.ajax({
-				async: "true",
-				url: "update",
-				type: "POST",
-				datatType: "json",
-				data: $("#adressForm").serialize(),
-				success: function(data){
-					var radioButton = document.createElement('input');
-					var paragraph = document.createElement('p');
-					radioButton.name = "radios";
-					radioButton.type = "radio";
-					radioButton.value= data.street + ' ' + data.addressNumber + ' ' + data.city + ' ' + data.province + ' ' + data.zip + ' ' + data.phone;
-					paragraph.append(data.street + ' ' + data.addressNumber + ' ' + data.city + ' ' + data.province + ' ' + data.zip + ' ' + data.phone);
+			<input type="text"
+		         class="form-control" 
+		         id="street"
+		         name="street"
+		         placeholder="Via">
+		  
+		  <input type="text"
+		         class="form-control" 
+		         id="city"
+		         name="city"
+		         placeholder="Città">
+		         
+		  
+		  <input type="text" 
+		         class="form-control" 
+		         id="province"
+		         name="province"
+		         placeholder="Provincia">
+		  
+		  <input type="text" 
+		         class="form-control" 
+		         id="zip"
+		         name="zip"
+		         placeholder="Zip">
+		         
+		   <input type="text" 
+		         class="form-control" 
+		         id="phone"
+				 name="phone"
+		         placeholder="Telefono">
 	
-				
-					$("#displayResult").append(paragraph);
-					$("#displayResult").append(radioButton);
-				}
-			});
-				
-	});
+		  <input type="hidden" name="action" value="form">   
+		  <input type="submit" value="form">
 
-	
-});
+		</form>
 
-</script>
+	<%
+		}
+	%>
+	  
 
 	<%
 		String message = (String)request.getAttribute("message");

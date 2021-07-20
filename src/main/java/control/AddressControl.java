@@ -39,15 +39,6 @@ public class AddressControl extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-
-    }
-
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
 	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	AddressDAO addressModel = new AddressDAO(ds);
 	HttpSession session = request.getSession();
@@ -56,16 +47,11 @@ public class AddressControl extends HttpServlet {
 
 	AddressBean address = new AddressBean();
 	String street = (String) request.getParameter("street");
+	System.out.println(street);
 	String province = (String) request.getParameter("province");
 	String zip = (String) request.getParameter("zip");
 	String phone = (String) request.getParameter("phone");
 	String city = (String) request.getParameter("city");
-
-	map.put("street", street);
-	map.put("province", province);
-	map.put("zip", zip);
-	map.put("phone", phone);
-	map.put("city", city);
 
 	address.setZip(zip);
 	address.setCity(city);
@@ -83,13 +69,51 @@ public class AddressControl extends HttpServlet {
 	    System.out.print(e);
 	}
 	map.put("isValid", isValid);
-	write(response, map);
+	write(response, address);
+
     }
 
-    private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+	AddressDAO addressModel = new AddressDAO(ds);
+	HttpSession session = request.getSession();
+	UserBean user = (UserBean) session.getAttribute("user");
+
+	AddressBean address = new AddressBean();
+	String street = (String) request.getParameter("street");
+	System.out.println(street);
+	String province = (String) request.getParameter("province");
+	String zip = (String) request.getParameter("zip");
+	String phone = (String) request.getParameter("phone");
+	String city = (String) request.getParameter("city");
+
+	address.setZip(zip);
+	address.setCity(city);
+	address.setPhone(phone);
+	address.setProvince(province);
+	address.setPhone(phone);
+	address.setStreetAddress(street);
+	address.setUserId(user.getId());
+
+	boolean isValid = true;
+	try {
+	    addressModel.doSave(address);
+	} catch (Exception e) {
+	    isValid = false;
+	    System.out.print(e);
+	}
+	write(response, address);
+    }
+
+    private void write(HttpServletResponse response, AddressBean bean) throws IOException {
 	response.setContentType("application/json");
 	response.setCharacterEncoding("UTF-8");
-	response.getWriter().write(new Gson().toJson(map));
+	response.getWriter().write(new Gson().toJson(bean));
     }
 
 }

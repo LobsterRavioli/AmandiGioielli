@@ -283,5 +283,38 @@ public class ProductDAO implements GenericDAO<ProductBean> {
 		    connection.close();
 	    }
 	}
+   }
+
+   public synchronized Collection<ProductBean> retrieveProductsByPartialName(String query) throws SQLException {
+
+        Collection<ProductBean> products = new LinkedList<ProductBean>();
+        String selectSQL = "SELECT * FROM " + "product" + " WHERE product_name LIKE ?";
+
+        try(Connection conn = ds.getConnection()){
+            try(PreparedStatement ps = conn.prepareStatement(selectSQL)){
+
+                ps.setString(1, "%" + query + "%");    // Need this to create a query similar to SELECT * FROM table WHERE name LIKE %a%
+
+                ResultSet rs = ps.executeQuery();
+
+                while(rs.next()) {
+                    ProductBean bean = new ProductBean();
+
+                    bean.setCode(rs.getInt("product_id"));
+                    bean.setName(rs.getString("product_name"));
+                    bean.setDescription(rs.getString("description"));
+                    bean.setShortDescription(rs.getString("short_description"));
+                    bean.setQuantity(rs.getInt("quantity"));
+                    bean.setPrice(rs.getDouble("price"));
+                    bean.setTaxRate(rs.getDouble("tax_rate"));
+                    bean.setDiscount(rs.getDouble("discount"));
+                    bean.setUrl(rs.getString("url"));
+                    
+                    products.add(bean);
+                }
+            }
+        }
+
+        return products;
     }
 }

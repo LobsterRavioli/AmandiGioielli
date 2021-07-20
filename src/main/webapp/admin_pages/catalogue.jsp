@@ -25,37 +25,47 @@
     <title>Amandi Gioielli - Catalogo</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css" type = "text/css">
    	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
 
 	<%@include file = "../fragments/admin_menu.jsp"%>
 	<%@include file = "../fragments/admin_header.jsp"%>
 	
-
 <div class = main-content>
+	
 	<div class = "cat-content">
+	
+		<div class = "search-wrapper">
+			<span class = "las la-search"></span>
+			<input id = "srch" type = "text" placeholder = "Search here"/>
+		</div>
+		
 		<h2>Catalogo</h2>
+		<a href= "<%=request.getContextPath()%>/admin_pages/create_product.jsp">Crea nuovo prodotto </a>
 		<table class="product-table">
+		<thead>
 			<tr>
 				<th style="width: 20%">Nome</th>
 				<th style="width: 60%">Descrizione</th>
 				<th style="width: 5%">Prezzo</th>
-				<th style="width: 15%"></th>	
+				<th style="width: 15%">Dettagli</th>	
 			</tr>
-			<button><a href= <%=request.getContextPath()+"/admin_pages/create_product.jsp"%>>Crea nuovo prodotto </a></button>
+		</thead>
+		
+		<tbody id = "result">
+		
 			<%
 			if(products != null && products.size() > 0) 
 			{
 				Iterator<?> it = products.iterator();
 				while(it.hasNext())
 				{
-				ProductBean bean = (ProductBean) it.next();
+					ProductBean bean = (ProductBean) it.next();
 					
-		%>
-
-
-
-		
+			%>
+			
 					<tr>
 						<td><%=bean.getName()%></td>
 						<td><%=bean.getDescription()%></td>
@@ -70,11 +80,13 @@
 							</a>	
 						</td>
 					</tr>
-
-		<%
+			
+			<%
 				}
 			}
-		%>
+			%>
+		
+		</tbody>
 		</table>
 		<br>
 		<%
@@ -105,5 +117,50 @@
 		%>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function(){
+		
+		var timer = null;
+		 $("#srch").keyup(function(){
+
+		        // preleva la stringa inserita dall'utente nella barra di ricerca
+		        var search = $(this).val();
+				
+		        // nel caso l'utente abbia inserito/cancellato un carattere, annullo il timeout precedente (posso farlo perchè timer è fuori da questo codeblock)
+		        clearTimeout(timer);
+
+		        // la richiesta ajax viene inviata dopo 500 ms (evito troppe richieste verso il server)
+		        timer = setTimeout(function() {
+		            if(search != ""){
+		                $.ajax({
+		                    type: "POST",
+		                    url: "./Search",
+		                    data: {partialName : search},
+		                    dataType: 'json',
+		                    success:function(response){
+		                        // svuota la lista di suggerimenti precedente
+		                        $("#result").empty();
+		                        console.log(response);
+		                        console.log(typeof response);
+		                      
+		                        // aggiunge alla lista di suggerimenti tutti i risultati
+		                        for(var i = 0; i < response.lenght; i++)
+		                        {
+		                        	var x = JSON.parse(response[i]);
+		                        	$("#result").append("<tr>" + "<td>" + x.description + "</td>" + "</tr>");
+		                        }
+		                    }
+		                    
+		            });
+		            }
+		            else{
+		                $("#result").empty();
+		            }
+		        }, 500);
+		    });
+	});
+</script>
+
 </body>
 </html>

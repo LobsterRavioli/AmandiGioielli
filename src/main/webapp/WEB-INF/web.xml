@@ -12,8 +12,8 @@
 	    <res-auth>Container</res-auth>
   	</resource-ref>
   
-  <!-- 
-
+  
+  
 	<filter>
     	<filter-name>AdminFilter</filter-name>
     	<filter-class>filters.AdminFilter</filter-class>
@@ -31,7 +31,7 @@
 	    <filter-name>UserFilter</filter-name>
 	    <url-pattern>/user_pages/*</url-pattern>
 	 </filter-mapping>
-	--> 
+	 
   
  
 </web-app>

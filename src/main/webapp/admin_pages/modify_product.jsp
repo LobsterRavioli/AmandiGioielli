@@ -10,33 +10,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 	<script type="text/javascript"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
-<%
-	String id = (String)request.getParameter("id");
-	ProductBean product = (ProductBean) request.getAttribute("productBean");
-	Collection<?> categories = (Collection<?>) request.getAttribute("categories");
-
- 	String error = (String)request.getAttribute("error");
- 	
- 	if((product == null || categories == null) && error == null) 
- 	{
-
- 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProductModifyControl?id=" + id));
- 		return;
- 	}
- 	System.out.print(product.getName());
-
-%>
-<meta charset="UTF-8">
-<title>Dettagli prodotto</title>
+	<meta charset="UTF-8">
+	<title>Dettagli prodotto</title>
 </head>
 <body>
-		<form action=<%=request.getContextPath() + "/ProductModifyControl?id=" + product.getCode()%> method="GET">
+
+
+		<%
+			String id = (String)request.getParameter("id");
+			ProductBean product = (ProductBean) request.getAttribute("productBean");
 			
-				<input type="hidden" name="action" value="insert">
+			//Tutte le categorie sul db
+			Collection<?> categories = (Collection<?>) request.getAttribute("categories");
+		 	String error = (String)request.getAttribute("error");
+		 	
+		 	if((product == null || categories == null) && error == null) 
+		 	{
+		 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/ProductModifyControl?id=" + id));
+		 		return;
+		 	}
+		
+		%>
+		
+		
+		<form action="<%=request.getContextPath()%>/ProductModifyControl" enctype="multipart/form-data" method="POST">
+			
+				<input type="hidden" name="id" value="<%=id%>">
 				
 				<label for="name">Nome:</label><br>
 				<textarea id="name" name="name"  maxlength="30"  required><%=product.getName() %></textarea><br>
@@ -55,15 +56,16 @@
 				<input id="quantity" name="quantity" type="number" min="0" value=<%=product.getQuantity()%> required><br>		
 				
 				<label for="discount">Sconto:</label><br>
-				<input id="discount" name="discount" type="number" min="1" value=<%=product.getDiscount()%> required><br>
+				<input id="discount" name="discount" type="number" min="0" value=<%=product.getDiscount()%> required><br>
 				
 				
-				<label for="tax">Tasse applicate:</label><br>
-				<input id="taxRate" name="taxRate" type="number" min="1" value="1" value=<%=product.getTaxRate()%>required><br>
-				<input type="hidden" value="update">
+				<label for="tax">Tasse applicate (%):</label><br>
+				<input id="taxRate" name="taxRate" type="number" min="0" value=<%=product.getTaxRate()%> required><br>
+				
 				<div id="displayResult">
 					
 				<%
+					//le categorie del singolo prodotto
 					ArrayList<CategoryBean> productCategories = product.getCategories();
 					boolean flag;
 				
@@ -91,8 +93,12 @@
 					}
 				%>
 				</div>
-				<input type="hidden" name="id" id="id" value="<%=product.getCode()%>">
-				<button id="submit"type="submit">Apporta modifiche</button>
+				<input type="file" name="file" id="file"><br>	
+					<select id="format" name="format" size="2" required="required">
+					  <option value=".png">.png</option>
+					  <option value=".jpeg">.jpeg</option>
+					</select>	
+				<button type="submit">Apporta modifiche</button>
 				
 		</form>
 

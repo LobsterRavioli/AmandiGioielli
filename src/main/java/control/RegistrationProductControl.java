@@ -34,8 +34,9 @@ public class RegistrationProductControl extends HttpServlet {
     static String SAVE_DIR = "/products_images";
 
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {
+    	doPost(request, response);
     }
 
 
@@ -74,7 +75,7 @@ public class RegistrationProductControl extends HttpServlet {
 		try {
 		    productModel.doSave(bean);
 		} catch (Exception e) {
-		    // TODO: handle exception
+		    e.printStackTrace();
 		}
 	
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin_pages/catalogue.jsp");

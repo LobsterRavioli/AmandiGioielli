@@ -8,7 +8,7 @@
  	
  	if(orders == null && error == null) 
  	{
- 		response.sendRedirect(response.encodeRedirectURL("../OrderControl"));
+ 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/DashBoard?scope=orders"));
  		return;
  	}
 
@@ -54,7 +54,7 @@
 					<td><%=bean.getTotalPrice()%></td>
 
 					<td>
-						<a href="<%= request.getContextPath() + "/OrderControl?order_id=" + bean.getId() %>" class="catalogue-icons">
+						<a href="<%= request.getContextPath() + "/DashBoard?scope=orders&order_id=" + bean.getId() %>" class="catalogue-icons">
 							<img src="<%=request.getContextPath()%>/images/product-info.png" alt="Get additional informations">
 						</a>
 					</td>

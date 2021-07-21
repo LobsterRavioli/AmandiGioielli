@@ -39,10 +39,10 @@
 				<input id="quantity" name="quantity" type="number" min="0"><br>		
 				
 				<label for="discount">Sconto:</label><br>
-				<input id="discount" name="discount" type="number" min="1"  required><br>
+				<input id="discount" name="discount" type="number" min="0"  required><br>
 				
 				<label for="taxRate">Tax Rate:</label><br>
-				<input id="taxRate" name="taxRate" type="number" min="1"  required><br>
+				<input id="taxRate" name="taxRate" type="number" min="0"  required><br>
 				<label for="file">Immagini da caricare:</label>
 				<input type="file" name="file" id="file"><br>	
 					<select id="format" name="format" size="2" required="required">

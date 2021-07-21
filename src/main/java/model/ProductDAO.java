@@ -13,332 +13,374 @@ import beans.CategoryBean;
 import beans.ProductBean;
 import utils.Utility;
 
-public class ProductDAO implements GenericDAO<ProductBean> {
+public class ProductDAO implements GenericDAO<ProductBean>
+{
 
-    private DataSource ds = null;
+	private DataSource ds = null;
 
-    public ProductDAO(DataSource ds) {
-	this.ds = ds;
-    }
-
-    @Override
-    public ProductBean doRetrieve(ProductBean product) throws SQLException {
-
-	Connection connection = null;
-	PreparedStatement preparedStatement = null;
-	PreparedStatement preparedStatement2 = null;
-
-	ProductBean bean = new ProductBean();
-	int code = product.getCode();
-
-	String selectSQL = "SELECT * FROM product WHERE product_id = ?";
-	String selectSQL2 = "SELECT * FROM category JOIN product_categories ON category.category_id = product_categories.category_id JOIN product ON product_categories.product_id=product.product_id where product.product_id = ?";
-
-	try {
-	    connection = ds.getConnection();
-	    preparedStatement = connection.prepareStatement(selectSQL);
-	    preparedStatement.setInt(1, code);
-
-	    Utility.print("doRetrieve: " + preparedStatement.toString());
-	    ResultSet rs = preparedStatement.executeQuery();
-	    ResultSet rs2;
-
-	    while (rs.next()) {
-		bean.setCode(rs.getInt("product_id"));
-		bean.setName(rs.getString("product_name"));
-		bean.setDescription(rs.getString("description"));
-		bean.setShortDescription(rs.getString("short_description"));
-		bean.setPrice(rs.getDouble("price"));
-		bean.setQuantity(rs.getInt("quantity"));
-		bean.setTaxRate(rs.getDouble("tax_rate"));
-		bean.setDiscount(rs.getDouble("discount"));
-		bean.setActive(rs.getBoolean("is_active"));
-		preparedStatement2 = connection.prepareStatement(selectSQL2);
-		preparedStatement2.setInt(1, bean.getCode());
-		rs2 = preparedStatement2.executeQuery();
-		while (rs2.next()) {
-		    bean.addCategory(new CategoryBean(rs2.getInt("category_id"), rs2.getString("name"),
-			    rs2.getString("description")));
-		}
-		preparedStatement2.close();
-
-	    }
-
-	    Utility.print("doRetrieve: " + preparedStatement.toString());
-	    rs = preparedStatement.executeQuery();
-
-	} finally {
-	    try {
-		if (preparedStatement != null)
-		    preparedStatement.close();
-	    } finally {
-		if (connection != null)
-		    connection.close();
-	    }
+	public ProductDAO(DataSource ds)
+	{
+		this.ds = ds;
 	}
 
-	return bean;
-    }
+	@Override
+	public ProductBean doRetrieve(ProductBean product) throws SQLException
+	{
 
-    @Override
-    public Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement2 = null;
+
+		ProductBean bean = new ProductBean();
+		int code = product.getCode();
+
+		String selectSQL = "SELECT * FROM product WHERE product_id = ?";
+		String selectSQL2 = "SELECT * FROM category JOIN product_categories ON category.category_id = product_categories.category_id JOIN product ON product_categories.product_id=product.product_id where product.product_id = ?";
+
+		try
+		{
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, code);
+
+			Utility.print("doRetrieve: " + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			ResultSet rs2;
+
+			while (rs.next())
+			{
+				bean.setCode(rs.getInt("product_id"));
+				bean.setName(rs.getString("product_name"));
+				bean.setDescription(rs.getString("description"));
+				bean.setShortDescription(rs.getString("short_description"));
+				bean.setPrice(rs.getDouble("price"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setTaxRate(rs.getDouble("tax_rate"));
+				bean.setDiscount(rs.getDouble("discount"));
+				bean.setActive(rs.getBoolean("is_active"));
+				bean.setUrl(rs.getString("url"));
+
+				preparedStatement2 = connection.prepareStatement(selectSQL2);
+				preparedStatement2.setInt(1, bean.getCode());
+				rs2 = preparedStatement2.executeQuery();
+				while (rs2.next())
+				{
+					bean.addCategory(new CategoryBean(rs2.getInt("category_id"), rs2.getString("name"),
+							rs2.getString("description")));
+				}
+				preparedStatement2.close();
+
+			}
+
+			Utility.print("doRetrieve: " + preparedStatement.toString());
+			rs = preparedStatement.executeQuery();
+
+		} finally
+		{
+			try
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally
+			{
+				if (connection != null)
+					connection.close();
+			}
+		}
+
+		return bean;
+	}
+
+	@Override
+	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException
+	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement2 = null;
 		Collection<ProductBean> products = new LinkedList<ProductBean>();
-	
+
 		String selectSQL = "SELECT * FROM product";
 		String selectSQL2 = "SELECT * FROM category JOIN product_categories ON category.category_id = product_categories.category_id JOIN product ON product_categories.product_id=product.product_id where product.product_id = ?";
-	
+
 		if (order != null && !order.equals(""))
-		    selectSQL += " ORDER BY " + order;
-	
-		try {
-		    connection = ds.getConnection();
-		    preparedStatement = connection.prepareStatement(selectSQL);
-		    preparedStatement2 = connection.prepareStatement(selectSQL2);
-	
-		    Utility.print("doRetrieveAll:" + preparedStatement.toString());
-		    ResultSet rs = preparedStatement.executeQuery();
-		    ResultSet rs2;
-	
-		    ProductBean bean;
-		    while (rs.next()) {
-			bean = new ProductBean();
-	
-			bean.setCode(rs.getInt("product_id"));
-			bean.setName(rs.getString("product_name"));
-			bean.setDescription(rs.getString("description"));
-			bean.setShortDescription(rs.getString("short_description"));
-			bean.setPrice(rs.getDouble("price"));
-			bean.setQuantity(rs.getInt("quantity"));
-			bean.setTaxRate(rs.getDouble("tax_rate"));
-			bean.setDiscount(rs.getDouble("discount"));
-			bean.setActive(rs.getBoolean("is_active"));
-			bean.setUrl(rs.getString("url"));
-	
+			selectSQL += " ORDER BY " + order;
+
+		try
+		{
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement2 = connection.prepareStatement(selectSQL2);
-			preparedStatement2.setInt(1, bean.getCode());
-			rs2 = preparedStatement2.executeQuery();
-	
-			while (rs2.next()) {
-			    bean.addCategory(new CategoryBean(rs2.getInt("category_id"), rs2.getString("name"),
-				    rs2.getString("description")));
+
+			Utility.print("doRetrieveAll:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			ResultSet rs2;
+
+			ProductBean bean;
+			while (rs.next())
+			{
+				bean = new ProductBean();
+
+				bean.setCode(rs.getInt("product_id"));
+				bean.setName(rs.getString("product_name"));
+				bean.setDescription(rs.getString("description"));
+				bean.setShortDescription(rs.getString("short_description"));
+				bean.setPrice(rs.getDouble("price"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setTaxRate(rs.getDouble("tax_rate"));
+				bean.setDiscount(rs.getDouble("discount"));
+				bean.setActive(rs.getBoolean("is_active"));
+				bean.setUrl(rs.getString("url"));
+
+				preparedStatement2 = connection.prepareStatement(selectSQL2);
+				preparedStatement2.setInt(1, bean.getCode());
+				rs2 = preparedStatement2.executeQuery();
+
+				while (rs2.next())
+				{
+					bean.addCategory(new CategoryBean(rs2.getInt("category_id"), rs2.getString("name"),
+							rs2.getString("description")));
+				}
+				preparedStatement2.close();
+				products.add(bean);
 			}
-			preparedStatement2.close();
-			products.add(bean);
-		    }
-		} finally {
-		    try {
-			if (preparedStatement != null)
-			    preparedStatement.close();
-		    } finally {
-			if (connection != null)
-			    connection.close();
-		    }
+		} finally
+		{
+			try
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally
+			{
+				if (connection != null)
+					connection.close();
+			}
 		}
-	
+
 		return products;
-    }
-
-    @Override
-    public void doSave(ProductBean product) throws SQLException {
-	Connection connection = null;
-	PreparedStatement preparedStatement = null;
-
-	String insertSQL = "INSERT INTO product"
-		+ " (product_name, description, short_description, quantity, price, tax_rate, discount, is_active,url) "
-		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)";
-
-	try {
-	    connection = ds.getConnection();
-	    connection.setAutoCommit(false);
-	    preparedStatement = connection.prepareStatement(insertSQL);
-
-	    preparedStatement.setString(1, product.getName());
-	    preparedStatement.setString(2, product.getDescription());
-	    preparedStatement.setString(3, product.getShortDescription());
-	    preparedStatement.setInt(4, product.getQuantity());
-	    preparedStatement.setDouble(5, product.getPrice());
-	    preparedStatement.setDouble(6, product.getTaxRate());
-	    preparedStatement.setDouble(7, product.getDiscount());
-	    preparedStatement.setBoolean(8, product.isActive());
-	    preparedStatement.setString(9, product.getUrl());
-	    Utility.print("doSave: " + preparedStatement.toString());
-	    preparedStatement.executeUpdate();
-
-	    connection.commit();
-
-	} finally {
-	    try {
-		if (preparedStatement != null)
-		    preparedStatement.close();
-	    } finally {
-		if (connection != null)
-		    connection.close();
-
-	    }
 	}
-    }
 
-    @Override
-    public void doUpdate(ProductBean product) throws SQLException {
-	Connection connection = null;
-	PreparedStatement preparedStatement = null;
-	PreparedStatement preparedStatement2 = null;
-	PreparedStatement preparedStatement3 = null;
+	@Override
+	public void doSave(ProductBean product) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 
-	String updateSQL = "UPDATE product SET "
-		+ "product_name=?, description=?,short_description=?,quantity=?,price=?,"
-		+ " tax_rate =?, discount=?, is_active=?, url =? WHERE product_id=?";
+		String insertSQL = "INSERT INTO product"
+				+ " (product_name, description, short_description, quantity, price, tax_rate, discount, is_active,url) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)";
 
-	String deleteSQL = "DELETE FROM product_categories WHERE product_id=? ";
-	String insertSQL = "INSERT INTO product_categories (category_id,product_id) VALUES(?,?) ";
+		try
+		{
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
 
-	try {
-	    connection = ds.getConnection();
-	    connection.setAutoCommit(false);
-	    preparedStatement = connection.prepareStatement(updateSQL);
-	    preparedStatement2 = connection.prepareStatement(deleteSQL);
-	    preparedStatement3 = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, product.getName());
+			preparedStatement.setString(2, product.getDescription());
+			preparedStatement.setString(3, product.getShortDescription());
+			preparedStatement.setInt(4, product.getQuantity());
+			preparedStatement.setDouble(5, product.getPrice());
+			preparedStatement.setDouble(6, product.getTaxRate());
+			preparedStatement.setDouble(7, product.getDiscount());
+			preparedStatement.setBoolean(8, product.isActive());
+			preparedStatement.setString(9, product.getUrl());
+			Utility.print("doSave: " + preparedStatement.toString());
+			preparedStatement.executeUpdate();
 
-	    preparedStatement.setString(1, product.getName());
-	    preparedStatement.setString(2, product.getDescription());
-	    preparedStatement.setString(3, product.getShortDescription());
-	    preparedStatement.setInt(4, product.getQuantity());
-	    preparedStatement.setDouble(5, product.getPrice());
-	    preparedStatement.setDouble(6, product.getTaxRate());
-	    preparedStatement.setDouble(7, product.getDiscount());
-	    preparedStatement.setBoolean(8, product.isActive());
-	    preparedStatement.setString(9, product.getUrl());
-	    preparedStatement.setInt(10, product.getCode());
+			connection.commit();
 
-	    preparedStatement2.setInt(1, product.getCode());
-	    Utility.print("doUpdate: " + preparedStatement.toString());
+		} finally
+		{
+			try
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally
+			{
+				if (connection != null)
+					connection.close();
 
-	    preparedStatement.executeUpdate();
-	    preparedStatement2.executeUpdate();
-	    if (product.getCategories().size() != 0) {
-
-		for (CategoryBean category : product.getCategories()) {
-		    preparedStatement3.setInt(1, category.getId());
-		    preparedStatement3.setInt(2, product.getCode());
-		    preparedStatement3.executeUpdate();
+			}
 		}
-	    }
-
-	    connection.commit();
-
-	} finally {
-	    try {
-		if (preparedStatement != null)
-		    preparedStatement.close();
-		if (preparedStatement2 != null)
-		    preparedStatement2.close();
-		if (preparedStatement3 != null)
-		    preparedStatement3.close();
-
-	    } finally {
-		if (connection != null)
-		    connection.close();
-
-	    }
 	}
-    }
 
-    @Override
-    public void doDelete(ProductBean product) throws SQLException {
-	Connection connection = null;
-	PreparedStatement preparedStatement = null;
-	PreparedStatement preparedStatement2 = null;
+	@Override
+	public void doUpdate(ProductBean product) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement2 = null;
+		PreparedStatement preparedStatement3 = null;
 
-	String deleteSQL = "DELETE FROM product WHERE product_id = ?";
-	String deleteSQL2 = "DELETE FROM product_categories WHERE product_id = ? ";
+		String updateSQL = "UPDATE product SET "
+				+ "product_name=?, description=?,short_description=?,quantity=?,price=?,"
+				+ " tax_rate =?, discount=?, is_active=?, url =? WHERE product_id=?";
 
-	try {
-	    connection = ds.getConnection();
-	    connection.setAutoCommit(false);
-	    preparedStatement = connection.prepareStatement(deleteSQL);
-	    preparedStatement2 = connection.prepareStatement(deleteSQL2);
-	    preparedStatement.setInt(1, product.getCode());
-	    preparedStatement2.setInt(1, product.getCode());
+		String deleteSQL = "DELETE FROM product_categories WHERE product_id=? ";
+		String insertSQL = "INSERT INTO product_categories (category_id,product_id) VALUES(?,?) ";
 
-	    Utility.print("doDelete: " + preparedStatement.toString());
-	    Utility.print("doDelete: " + preparedStatement2.toString());
+		try
+		{
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement2 = connection.prepareStatement(deleteSQL);
+			preparedStatement3 = connection.prepareStatement(insertSQL);
 
-	    preparedStatement.executeUpdate();
-	    preparedStatement2.executeUpdate();
+			preparedStatement.setString(1, product.getName());
+			preparedStatement.setString(2, product.getDescription());
+			preparedStatement.setString(3, product.getShortDescription());
+			preparedStatement.setInt(4, product.getQuantity());
+			preparedStatement.setDouble(5, product.getPrice());
+			preparedStatement.setDouble(6, product.getTaxRate());
+			preparedStatement.setDouble(7, product.getDiscount());
+			preparedStatement.setBoolean(8, product.isActive());
+			preparedStatement.setString(9, product.getUrl());
+			preparedStatement.setInt(10, product.getCode());
 
-	    connection.commit();
+			preparedStatement2.setInt(1, product.getCode());
+			Utility.print("doUpdate: " + preparedStatement.toString());
 
-	} finally {
-	    try {
-		if (preparedStatement != null)
-		    preparedStatement.close();
-		else if (preparedStatement2 != null)
-		    preparedStatement2.close();
+			preparedStatement.executeUpdate();
+			preparedStatement2.executeUpdate();
+			if (product.getCategories().size() != 0)
+			{
 
-	    } finally {
-		if (connection != null)
-		    connection.close();
-	    }
+				for (CategoryBean category : product.getCategories())
+				{
+					preparedStatement3.setInt(1, category.getId());
+					preparedStatement3.setInt(2, product.getCode());
+					preparedStatement3.executeUpdate();
+				}
+			}
+
+			connection.commit();
+
+		} finally
+		{
+			try
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (preparedStatement2 != null)
+					preparedStatement2.close();
+				if (preparedStatement3 != null)
+					preparedStatement3.close();
+
+			} finally
+			{
+				if (connection != null)
+					connection.close();
+
+			}
+		}
 	}
-   }
 
-   public Collection<ProductBean> retrieveProductsByPartialName(String query) throws SQLException {
+	@Override
+	public void doDelete(ProductBean product) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement2 = null;
 
-        Collection<ProductBean> products = new LinkedList<ProductBean>();
-        String selectSQL = "SELECT * FROM " + "product" + " WHERE product_name LIKE ?";
+		String deleteSQL = "DELETE FROM product WHERE product_id = ?";
+		String deleteSQL2 = "DELETE FROM product_categories WHERE product_id = ? ";
 
-        try(Connection conn = ds.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement(selectSQL)){
+		try
+		{
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement2 = connection.prepareStatement(deleteSQL2);
+			preparedStatement.setInt(1, product.getCode());
+			preparedStatement2.setInt(1, product.getCode());
 
-                ps.setString(1, "%" + query + "%");    // Need this to create a query similar to SELECT * FROM table WHERE name LIKE %a%
+			Utility.print("doDelete: " + preparedStatement.toString());
+			Utility.print("doDelete: " + preparedStatement2.toString());
 
-                ResultSet rs = ps.executeQuery();
+			preparedStatement.executeUpdate();
+			preparedStatement2.executeUpdate();
 
-                while(rs.next()) {
-                    ProductBean bean = new ProductBean();
+			connection.commit();
 
-                    bean.setCode(rs.getInt("product_id"));
-                    bean.setName(rs.getString("product_name"));
-                    bean.setDescription(rs.getString("description"));
-                    bean.setShortDescription(rs.getString("short_description"));
-                    bean.setQuantity(rs.getInt("quantity"));
-                    bean.setPrice(rs.getDouble("price"));
-                    bean.setTaxRate(rs.getDouble("tax_rate"));
-                    bean.setDiscount(rs.getDouble("discount"));
-                    bean.setUrl(rs.getString("url"));
-                    
-                    products.add(bean);
-                }
-            }
-        }
+		} finally
+		{
+			try
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+				else if (preparedStatement2 != null)
+					preparedStatement2.close();
 
-        return products;
-    }
-   
-   public Collection<ProductBean> DoRetrieveByCategory(CategoryBean category) throws SQLException {
+			} finally
+			{
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+
+	public Collection<ProductBean> retrieveProductsByPartialName(String query) throws SQLException
+	{
+
+		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		String selectSQL = "SELECT * FROM " + "product" + " WHERE product_name LIKE ?";
+
+		try (Connection conn = ds.getConnection())
+		{
+			try (PreparedStatement ps = conn.prepareStatement(selectSQL))
+			{
+
+				ps.setString(1, "%" + query + "%"); // Need this to create a query similar to SELECT * FROM table WHERE
+													// name LIKE %a%
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next())
+				{
+					ProductBean bean = new ProductBean();
+
+					bean.setCode(rs.getInt("product_id"));
+					bean.setName(rs.getString("product_name"));
+					bean.setDescription(rs.getString("description"));
+					bean.setShortDescription(rs.getString("short_description"));
+					bean.setQuantity(rs.getInt("quantity"));
+					bean.setPrice(rs.getDouble("price"));
+					bean.setTaxRate(rs.getDouble("tax_rate"));
+					bean.setDiscount(rs.getDouble("discount"));
+					bean.setUrl(rs.getString("url"));
+
+					products.add(bean);
+				}
+			}
+		}
+
+		return products;
+	}
+
+	public Collection<ProductBean> DoRetrieveByCategory(CategoryBean category) throws SQLException
+	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		Collection<ProductBean> products = new LinkedList<ProductBean>();
-	
-		String selectSQL = "SELECT p.product_id, p.product_name, p.description, p.short_description, p.quantity, p.price, p.tax_rate, p.discount, p.is_active, p.url "
-							+ "FROM product p JOIN product_categories pc ON p.product_id = pc.product_id JOIN category c "
-							+ "ON pc.category_id = c.category_id WHERE c.category_id = ?";
 
-	
-		try {
-		    connection = ds.getConnection();
-		    preparedStatement = connection.prepareStatement(selectSQL);
-		    preparedStatement.setInt(1, category.getId());
-		    Utility.print("doRetrieveAll:" + preparedStatement.toString());
-		    ResultSet rs = preparedStatement.executeQuery();
-	
-		    ProductBean bean;
-		    while (rs.next()) {
+		String selectSQL = "SELECT p.product_id, p.product_name, p.description, p.short_description, p.quantity, p.price, p.tax_rate, p.discount, p.is_active, p.url "
+				+ "FROM product p JOIN product_categories pc ON p.product_id = pc.product_id JOIN category c "
+				+ "ON pc.category_id = c.category_id WHERE c.category_id = ?";
+
+		try
+		{
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, category.getId());
+			Utility.print("doRetrieveAll:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			ProductBean bean;
+			while (rs.next())
+			{
 				bean = new ProductBean();
-		
+
 				bean.setCode(rs.getInt("product_id"));
 				bean.setName(rs.getString("product_name"));
 				bean.setDescription(rs.getString("description"));
@@ -350,17 +392,20 @@ public class ProductDAO implements GenericDAO<ProductBean> {
 				bean.setActive(rs.getBoolean("is_active"));
 				bean.setUrl(rs.getString("url"));
 				products.add(bean);
-		    }
-		} finally {
-		    try {
-			if (preparedStatement != null)
-			    preparedStatement.close();
-		    } finally {
-			if (connection != null)
-			    connection.close();
-		    }
+			}
+		} finally
+		{
+			try
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally
+			{
+				if (connection != null)
+					connection.close();
+			}
 		}
-	
+
 		return products;
-   }
+	}
 }

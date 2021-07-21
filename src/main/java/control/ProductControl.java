@@ -40,14 +40,14 @@ public class ProductControl extends HttpServlet {
 	}
 
 	String sort = request.getParameter("sort");
-	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+	String categoryId = request.getParameter("categoryId");
 	String action = request.getParameter("action");
 
 	try {
-		if(categoryId != -1)
+		if(categoryId != null)
 		{
 			CategoryBean catBean = new CategoryBean();
-			catBean.setId(categoryId);
+			catBean.setId(Integer.parseInt(categoryId));
 		    request.removeAttribute("products");
 		    request.setAttribute("products", model.DoRetrieveByCategory(catBean));
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common_pages/catalogue.jsp");
@@ -66,6 +66,10 @@ public class ProductControl extends HttpServlet {
 	
 			    request.removeAttribute("product");
 			    request.setAttribute("product", model.doRetrieve(product));
+			    
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common_pages/product_details.jsp");
+				dispatcher.forward(request, response);
+				return;
 	    	} 
 	    	else if (action.equals("addCart")) 
 	    	{

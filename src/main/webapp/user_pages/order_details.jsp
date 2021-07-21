@@ -19,8 +19,9 @@
 <body>
 	<%@include file="../fragments/header.jsp" %>
 	<%	
-		Collection<OrderDetailBean> ordersDetail = (Collection<OrderDetailBean>) request.getAttribute("ordersDetails");
-		LinkedList<OrderDetailBean> list =(LinkedList) ordersDetail;
+		Collection<?> ordersDetail = (Collection<?>) request.getAttribute("ordersDetails");
+	
+		
 	%>
 
 	<h2>Dettagli ordine</h2>
@@ -35,15 +36,19 @@
 			<th> </th>
 		</tr>
 		<%
-		if(!list.isEmpty()){
-			for(OrderDetailBean detail : list){
+		if(ordersDetail!= null && ordersDetail.size() > 0) 
+		{
+			Iterator<?> it = ordersDetail.iterator();
+			while(it.hasNext())
+			{
+				OrderDetailBean bean = (OrderDetailBean) it.next();
 				
 		%>
 		<tr>
-			<td><%= detail.getName() %></td>
-			<td><%= detail.getDiscount() %></td>
-			<td><%= detail.getPrice()%></td>
-			<td><%= detail.getQuantity()%></td>
+			<td><%= bean.getName() %></td>
+			<td><%= bean.getDiscount() %></td>
+			<td><%= bean.getPrice()%></td>
+			<td><%= bean.getQuantity()%></td>
 			<td>								
 			</td>
 		</tr>

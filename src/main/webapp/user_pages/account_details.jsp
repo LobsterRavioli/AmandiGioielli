@@ -1,4 +1,3 @@
-<%@page import="control.LogOutControl"%>
 <%@page import="beans.AddressBean"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Collection"%>
@@ -11,7 +10,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amandi Gioielli - Dashboard account</title>
+    <title>Amandi Gioielli - Gestione account</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" type="text/css">
    	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/all.min.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,26 +20,38 @@
 	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 	<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
-
 <body>
 
 	<%
 		UserBean user = (UserBean) session.getAttribute("user");
 		String error = (String)request.getAttribute("error");
-
-	
 	%>
 	<%@ include file="../fragments/header.jsp"%>
 	<%@ include file="../fragments/user_sidebar.jsp"%>
-	<h3>Informazioni Account</h3>
+		<h3>Informazioni Account</h3>
 	
-	<p>
-		Ciao <%=user.getFirstName()%> (non sei <%=user.getFirstName()%>? <a href="<%=request.getContextPath()%>/LogOutControl">Logout</a>)
-		Dalla bacheca del tuo account puoi visualizzare i tuoi ordini recenti, gestire i tuoi indirizzi e modificare la password e i dettagli dell'account.
-	</p>
-
-
+		<form action="<%=request.getContextPath()%>/DashBoard" method="POST">
 	
+			<input type="hidden" name="scope" value="account">
+			<label for="firstName">Nome:</label><br>
+			<input type="text" id="firstName" name="firstName" value="<%=user.getFirstName()%>" required><br>
+		
+			<label for="lastName">Cognome:</label><br>
+			<input type="text" id="lastName" name="lastName" value="<%=user.getLastName()%>" required><br>	
+	
+			<label for="email">Email:</label><br>
+			<input type="email" id="email" name="email" value="<%=user.getEmail()%>" required><br>
+			
+			<label for="password">Password:</label><br>
+			<input type="password" id="password" name="password" value="<%=user.getPassword()%>" required><br>
+			
+			<label for="phone">Telefono:</label><br>
+			<input type="text" id="phone" name="phone" value="<%=user.getPhone()%>" required><br>
+			
+			<button type="submit">Apporta modifiche</button>
+			
+		</form>
+		
 	<%@ include file="../fragments/footer.jsp"%>
 </body>
 </html>

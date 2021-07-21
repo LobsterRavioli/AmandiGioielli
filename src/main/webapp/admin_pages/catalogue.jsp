@@ -25,7 +25,6 @@
     <title>Amandi Gioielli - Catalogo</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css" type = "text/css">
    	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
-   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 </head>
 <body>

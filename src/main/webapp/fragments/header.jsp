@@ -17,18 +17,18 @@
 				<li><a href="<%=request.getContextPath()%>/common_pages/home.jsp">Home</a></li>
 				<li class="has-children"><a href="<%=request.getContextPath()%>/common_pages/catalogue.jsp">Negozio</a>
 					<ul class="sub-menu-mobile">
-						<li><a href="#">Anelli</a></li>
-						<li><a href="#">Bracciali</a></li>
-						<li><a href="#">Collane & Pendenti</a></li>
-						<li><a href="#">Orecchini</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=1">Anelli</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=2">Bracciali</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=3">Collane & Pendenti</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=4">Orecchini</a></li>
 					</ul>
 				</li>
 				<li class="has-children"><a href="#">Collezioni</a>
 					<ul class="sub-menu-mobile">
-						<li><a href="#">Naturalis Mundi</a></li>
-						<li><a href="#">The Blue</a></li>
-						<li><a href="#">Ornamental</a></li>
-						<li><a href="#">Butterfly Effect</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=5">Naturalis Mundi</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=6">The Blue</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=7">Ornamental</a></li>
+						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=8">Butterfly Effect</a></li>
 					</ul>
 				</li>
 				<li><a href="">About</a></li>
@@ -62,7 +62,7 @@
 		<nav class="menu">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/common_pages/home.jsp">Home</a></li>
-				<li class="has-children"><a href="<%=request.getContextPath()%>/ProductControl?categoryId=-1">Negozio <i class="fas fa-caret-down"></i></a>
+				<li class="has-children"><a href="<%=request.getContextPath()%>/common_pages/catalogue.jsp">Negozio <i class="fas fa-caret-down"></i></a>
 					<ul class="sub-menu">
 						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=1">Anelli</a></li>
 						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=2">Bracciali</a></li>
@@ -104,7 +104,7 @@
 		  	{
 			%>
 			<a href="<%=request.getContextPath()%>/user_pages/dashboard.jsp" title="Dashboard account"><img src="<%=request.getContextPath()%>/images/icons/user.png"></a>
-			
+			<a href="<%=request.getContextPath()%>/LogOutControl" title="Logout"><img src="<%=request.getContextPath()%>/images/icons/logout.png"></a>
 			<%
 			}
 			%>
@@ -117,7 +117,6 @@
 			<%
 			}
 			%>
-			<a href="#" title="Wishlist"><img src="<%=request.getContextPath()%>/images/icons/wishlist.png"></a>
 			<div class="shopping-bag">
 				<a href="<%=request.getContextPath()%>/common_pages/cart.jsp"><img src="<%=request.getContextPath()%>/images/icons/shopping-bag.png" title="Carrello"></a>
 				<span class="cart-basket">

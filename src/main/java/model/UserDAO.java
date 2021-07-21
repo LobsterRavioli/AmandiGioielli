@@ -105,7 +105,7 @@ public class UserDAO implements GenericDAO<UserBean>
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO user (first_name, last_name, email, password, phone, newsletter) "
-				+ "VALUES (?, ?, ?, ?, ?)";
+				+ "VALUES (?, ?, ?, ?, ?, ?)";
 		try
 		{
 			connection = ds.getConnection();

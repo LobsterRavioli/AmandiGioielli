@@ -19,6 +19,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 	<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
+	<script src="<%=request.getContextPath()%>/js/validation.js"></script>
 </head>
 
 <body>
@@ -87,7 +88,7 @@
 
 		</form>
 		
-		<div class="error-section">
+		<div>
 			<%
 				if(error != null)
 				{
@@ -96,7 +97,19 @@
 			<% 	
 				}
 			%>
+			
+			<%
+				if(error == null)
+				{
+			%>
+					<p id="addressLabel"></p>
+			<% 	
+				}
+			%>
 		</div>
+		
+		
+		
 		<%@ include file="../fragments/footer.jsp"%>
 </body>
 </html>

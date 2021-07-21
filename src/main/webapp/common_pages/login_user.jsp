@@ -14,6 +14,7 @@
 	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
+		<script src="<%=request.getContextPath()%>/js/validation.js"></script>
 </head>
 
 <body>
@@ -40,7 +41,7 @@
 	%>
 
 		<div>
-			<form action="<%=request.getContextPath()%>/LoginControl" method="post">
+			<form action="<%=request.getContextPath()%>/LoginControl" method="post" id="loginForm">
 	
 	    		<label for="email"><b>Email</b></label>
 	    		<input type="email" name="email" id="email" placeholder="Inserisci Email" required="required">
@@ -52,6 +53,11 @@
 		</div>
 		<br>
 		<a href="<%=request.getContextPath()%>/common_pages/registration.jsp">Non hai un account? Crealo subito</a>
+		
+		
+		<div>
+			<p id="loginLabel"></p>
+		</div>
 		<%
 		String message = (String)request.getAttribute("message");
 		if(message != null && !message.equals("")) 

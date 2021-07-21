@@ -64,35 +64,9 @@
 				</div>
 			</div>			
 		</div>
-
-		<div class = "recent-grid">
-			<div class = "customers">
-				<div class = "card">
-					<div class = "card-header">
-						<h2>New customers</h2>
-						<button onclick = "">See all <span class = "las la-arrow-right"></span></button>
-					</div>
 					
-					<div class = "card-body">
-							<div class = "customer">
-								<div class = "info">
-									<h4>Customer Info</h4>
-								</div>
-								
-								<div class = "contact">
-									<span class = "las la-user-circle"></span>
-									<span class = "las la-comment"></span>
-									<span class = "las la-phone"></span>
-								</div>
-							</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class = "orders">
-			</div>			
-		</div>
 	</div>
 </div>
+
 </body>
 </html>

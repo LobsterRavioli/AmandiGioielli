@@ -19,6 +19,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 	<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
+	<script src="<%=request.getContextPath()%>/js/validation.js"></script>
 </head>
 <body>
 
@@ -30,9 +31,11 @@
 	<%@ include file="../fragments/user_sidebar.jsp"%>
 		<h3>Informazioni Account</h3>
 	
-		<form action="<%=request.getContextPath()%>/DashBoard" method="POST">
+		<form action="<%=request.getContextPath()%>/DashBoard" method="POST" id="accountModifyForm">
 	
 			<input type="hidden" name="scope" value="account">
+			
+			
 			<label for="firstName">Nome:</label><br>
 			<input type="text" id="firstName" name="firstName" value="<%=user.getFirstName()%>" required><br>
 		
@@ -51,6 +54,10 @@
 			<button type="submit">Apporta modifiche</button>
 			
 		</form>
+		
+		<div>
+			<p id="accountModifyLabel"></p>
+		</div>
 		
 	<%@ include file="../fragments/footer.jsp"%>
 </body>

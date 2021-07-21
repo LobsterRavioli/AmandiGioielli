@@ -21,13 +21,15 @@
 	<%@include file="../fragments/header.jsp" %>
 
 	
+	<%
+		String msg = (String) request.getAttribute("message");
+	%>
 
 
-
-<body onLoad="document.registration.userid.focus();">
+<body>
 	   
 	<div>
-    	<form name="registration" action="<%=request.getContextPath()%>/RegistrationControl" onsubmit="event.preventDefault(); validate(this)" method="post">
+    	<form name="registration" action="<%=request.getContextPath()%>/RegistrationControl" method="post" id="registrationForm">
 		    <label for="name"><b>Nome</b></label>
 		    <input type="text" placeholder="Inserisci Nome" name="name" id="name" required="required">
 		  
@@ -40,13 +42,30 @@
    		    <label for="password"><b>Password</b></label>
 		    <input type="password" name="password" id="password" placeholder="Inserisci Password"  required="required">
 		    
-		    
-   		    <label for="newsletter">Iscriviti alla newsletter</label>
-		    <input type="checkbox" id="newsletter" name="newsletter" value="true">
 		    <input type="submit" value="Crea un account">
 		    
 		</form>
 		
+	</div>
+	
+	<div>
+		<%
+		if(msg!=null)
+		{
+		%>
+			<p id="registrationLabel"><%=msg%></p>
+		<%
+		} 
+		%>
+		
+		<%
+		if(msg==null)
+		{
+		%>
+			<p id="registrationLabel"></p>
+		<%
+		} 
+		%>
 	</div>
 	
 

@@ -14,7 +14,7 @@
 				data: form.serialize(),
 				success: function(data){
 					var paragraph = document.createElement('p');
-					paragraph.append(data.zip + ' ' + data.streetAddress + ' ' + data.city + ' ' + data.province +  ' ' + data.phone);
+					paragraph.append(data.streetAddress + ' - ' + data.city + ' - ' + data.province +  ' - ' + data.zip + ' - ' + data.phone);
 					$("#displayResult").append(paragraph);
 				}
 			});

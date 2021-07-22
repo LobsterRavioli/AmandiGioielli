@@ -56,8 +56,11 @@ public class RegistrationControl extends HttpServlet
 
 				if (bean.getEmail().equals(user.getEmail()))
 				{
+					request.removeAttribute("message");
 					request.setAttribute("message", "Sei già registrato");
-					response.sendRedirect(request.getContextPath() + "/common_pages/login_user.jsp");
+					RequestDispatcher dispatcher = this.getServletContext()
+							.getRequestDispatcher("/common_pages/registration.jsp");
+					dispatcher.forward(request, response);
 					return;
 				}
 			}

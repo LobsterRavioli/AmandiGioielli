@@ -32,12 +32,13 @@
 	%>
 	<%@ include file="../fragments/header.jsp"%>
 	<%@ include file="../fragments/user_sidebar.jsp"%>
-	<h3>Informazioni Account</h3>
 	
-	<p>
-		Ciao <%=user.getFirstName()%> (non sei <%=user.getFirstName()%>? <a href="<%=request.getContextPath()%>/LogOutControl">Logout</a>)
+	<div class="welcome-dashboard">
+
+		<h3>Informazioni Account</h3>
+		Ciao <span style="color: #00ddc9"><%=user.getFirstName()%></span> (non sei <%=user.getFirstName()%>? <a style="color: #00ddc9" href="<%=request.getContextPath()%>/LogOutControl">Logout</a>)
 		Dalla bacheca del tuo account puoi visualizzare i tuoi ordini recenti, gestire i tuoi indirizzi e modificare la password e i dettagli dell'account.
-	</p>
+	</div>
 
 
 	

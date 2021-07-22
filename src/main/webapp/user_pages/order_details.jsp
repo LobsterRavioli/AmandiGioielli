@@ -18,47 +18,42 @@
 </head>
 <body>
 	<%@include file="../fragments/header.jsp" %>
+	<%@include file="../fragments/user_sidebar.jsp" %>
+	
 	<%	
 		Collection<?> ordersDetail = (Collection<?>) request.getAttribute("ordersDetails");
-	
-		
 	%>
-
-	<h2>Dettagli ordine</h2>
-	<table>
-		<tr>
-			<th>Codice</th>
-			<th>Nome</th>
-			<th>Descrizione</th>
-			<th>Prezzo</th>
-			<th>Iva</th>
-			<th>Quantità</th>
-			<th> </th>
-		</tr>
-		<%
-		if(ordersDetail!= null && ordersDetail.size() > 0) 
-		{
-			Iterator<?> it = ordersDetail.iterator();
-			while(it.hasNext())
+	<div class="welcome-dashboard">
+		<h2>Dettagli ordine</h2>
+		<table>
+			<tr>
+				<th>Nome</th>
+				<th>Prezzo</th>
+				<th>Quantità</th>
+				<th>Subtotale</th>
+			</tr>
+			<%
+			if(ordersDetail!= null && ordersDetail.size() > 0) 
 			{
-				OrderDetailBean bean = (OrderDetailBean) it.next();
-				
-		%>
-		<tr>
-			<td><%= bean.getName() %></td>
-			<td><%= bean.getDiscount() %></td>
-			<td><%= bean.getPrice()%></td>
-			<td><%= bean.getQuantity()%></td>
-			<td>								
-			</td>
-		</tr>
-	</table>
-	<%
+				Iterator<?> it = ordersDetail.iterator();
+				while(it.hasNext())
+				{
+					OrderDetailBean bean = (OrderDetailBean) it.next();
+					
+			%>
+					<tr>
+						<td><%= bean.getName() %></td>
+						<td><%= bean.getRealPriceString()%> &euro;</td>
+						<td><%= bean.getQuantity()%></td>
+						<td><%= bean.getRealPriceStringAll()%> &euro;</td>
+					</tr>
+
+		<%
+				}
 			}
-		}
-	%>
-	
-	<div class="spacer-footer"><br> </div>
+		%>
+		</table>
+	</div>
 	
 	<%@include file="../fragments/footer.jsp" %>
 </body>

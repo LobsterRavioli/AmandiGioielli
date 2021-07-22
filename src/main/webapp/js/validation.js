@@ -47,25 +47,24 @@ function checkPhonenumber(inputtxt) {
 
 $(document).ready(function(){
 	
-	// VALIDAZIONE LOGIN USER
+	// VALIDAZIONE LOGIN UTENTE
 	$("#loginForm").submit(function(event){
 		if(!checkEmail($("#loginForm input[name=email]"))) {
-			$("#loginLabel").html("Inserisci una email valida.");
+			$("#loginLabel").html('Inserisci una email valida<i class="fas fa-exclamation-triangle"></i>');
 			return false;
 		}
 	});
 	
-	// VALIDAZIONE REGISTRAZIONE USER
+	// VALIDAZIONE REGISTRAZIONE UTENTE
 	$("#registrationForm").submit(function(event){
 		
-		$("#registrationLabel").empty();
 		
 		var name = onlyLetters($("#registrationForm input[name=name]"));
 		var surname = onlyLetters($("#registrationForm input[name=surname]"))
 		var email = checkEmail($("#registrationForm input[name=email]"));
 		
 		if(!name || !surname || !email ) {
-			$("#registrationLabel").html("Dati inseriti non corretti.<br>");
+			$("#registrationLabel").html('Dati inseriti non validi<i class="fas fa-exclamation-triangle"></i>');
 			return false;
 		}
 	});	
@@ -91,7 +90,7 @@ $(document).ready(function(){
 		var phone = checkPhonenumber($("#accountModifyForm input[name=phone]"));
 		
 		if(!name || !surname || !email || !phone ) {
-			$("#accountModifyLabel").html("Dati inseriti non corretti.<br>");
+			$("#accountModifyLabel").html('Dati inseriti non validi<i class="fas fa-exclamation-triangle"></i>');
 			return false;
 		}
 	});	

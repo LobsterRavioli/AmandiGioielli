@@ -2,7 +2,6 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,154 +16,170 @@ import beans.Cart;
 import beans.CategoryBean;
 import beans.ProductBean;
 import model.CategoryDAO;
-import model.GenericDAO;
 import model.ProductDAO;
 import utils.Utility;
 
 @WebServlet("/ProductControl")
-public class ProductControl extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+public class ProductControl extends HttpServlet
+{
+	private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 
-	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-	ProductDAO model = new ProductDAO(ds);
-	HttpSession session = request.getSession();
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		ProductDAO model = new ProductDAO(ds);
+		CategoryDAO modelCat = new CategoryDAO(ds);
+		HttpSession session = request.getSession();
 
-	Cart cart = (Cart) session.getAttribute("cart");
+		Cart cart = (Cart) session.getAttribute("cart");
 
-	if (cart == null) {
-	    cart = new Cart();
-	    session.setAttribute("cart", cart);
-	}
-
-	String sort = request.getParameter("sort");
-	String categoryId = request.getParameter("categoryId");
-	String action = request.getParameter("action");
-
-	try {
-		if(categoryId != null)
+		if (cart == null)
 		{
-			CategoryBean catBean = new CategoryBean();
-			catBean.setId(Integer.parseInt(categoryId));
-		    request.removeAttribute("products");
-		    request.setAttribute("products", model.DoRetrieveByCategory(catBean));
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common_pages/catalogue.jsp");
-			dispatcher.forward(request, response);
-			return;
+			cart = new Cart();
+			session.setAttribute("cart", cart);
 		}
-		
-	    if (action != null) 
-	    {
-	    	if (action.equals("details")) 
-	    	{
-			    String id = request.getParameter("id");
-	
-			    ProductBean product = new ProductBean();
-			    product.setCode(Integer.parseInt(id));
-	
-			    request.removeAttribute("product");
-			    request.setAttribute("product", model.doRetrieve(product));
-			    
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common_pages/product_details.jsp");
+
+		String sort = request.getParameter("sort");
+		String categoryId = request.getParameter("categoryId");
+		String action = request.getParameter("action");
+		String page = request.getParameter("page");
+
+		try
+		{
+			if (categoryId != null)
+			{
+				CategoryBean catBean = new CategoryBean();
+				catBean.setId(Integer.parseInt(categoryId));
+				request.removeAttribute("products");
+				request.setAttribute("products", model.DoRetrieveByCategory(catBean));
+
+				request.removeAttribute("title");
+				request.setAttribute("title", modelCat.doRetrieve(catBean).getName());
+
+				RequestDispatcher dispatcher = this.getServletContext()
+						.getRequestDispatcher("/common_pages/catalogue.jsp");
 				dispatcher.forward(request, response);
 				return;
-	    	} 
-	    	else if (action.equals("addCart")) 
-	    	{
-			    String id = request.getParameter("id");
-			    int qty =  cart.getProductQuantity(Integer.parseInt(id));
-			    ProductBean product = new ProductBean();
-			    product.setCode(Integer.parseInt(id));
-	
-			    ProductBean bean = model.doRetrieve(product);
-
-
-			    if (bean != null && !bean.isEmpty() && (bean.getQuantity() - qty) - 1 >= 0) 
-			    {
-					cart.addItem(bean);
-					request.setAttribute("message", "Prodotto " + bean.getName() + " aggiunto al carrello.");
-			    } 
-			    else 	
-			    {
-			    	request.setAttribute("message", "Prodotto " + bean.getName() + " non disponibile.");
-			    }
-	    	}
-
-			else if (action.equals("insert")) 
-			{
-			    String name = request.getParameter("name");
-			    String description = request.getParameter("description");
-			    double price = Double.parseDouble(request.getParameter("price"));
-			    int quantity = Integer.parseInt(request.getParameter("quantity"));
-	
-			    ProductBean bean = new ProductBean();
-			    bean.setName(name);
-			    bean.setDescription(description);
-			    bean.setPrice(price);
-			    bean.setQuantity(quantity);
-	
-			    model.doSave(bean);
-			    request.setAttribute("message", "Prodotto " + bean.getName() + " aggiunto con successo.");
-	
-			} 
-			else if (action.equals("delete")) 
-			{
-			    String id = request.getParameter("id");
-	
-			    ProductBean product = new ProductBean();
-			    product.setCode(Integer.parseInt(id));
-	
-			    ProductBean bean = model.doRetrieve(product);
-			    if (bean != null && !bean.isEmpty()) 
-			    {
-					model.doDelete(bean);
-					request.setAttribute("message", "Prodotto " + bean.getName() + " rimosso con successo.");
-			    }
-			} 
-			else if (action.equals("update")) 
-			{
-			    String id = request.getParameter("id");
-			    String name = request.getParameter("name");
-			    String description = request.getParameter("description");
-			    double price = Double.parseDouble(request.getParameter("price"));
-			    int quantity = Integer.parseInt(request.getParameter("quantity"));
-	
-			    ProductBean bean = new ProductBean();
-			    bean.setCode(Integer.parseInt(id));
-			    bean.setName(name);
-			    bean.setDescription(description);
-			    bean.setPrice(price);
-			    bean.setQuantity(quantity);
-	
-			    model.doUpdate(bean);
-			    request.setAttribute("message", "Prodotto " + bean.getName() + " aggiornato con successo");
 			}
-	    }
-	} catch (SQLException | NumberFormatException e) {
-	    Utility.print(e);
-	    request.setAttribute("error", e.getMessage());
+
+			if (action != null)
+			{
+				if (action.equals("details"))
+				{
+					String id = request.getParameter("id");
+
+					ProductBean product = new ProductBean();
+					product.setCode(Integer.parseInt(id));
+
+					request.removeAttribute("product");
+					request.setAttribute("product", model.doRetrieve(product));
+
+					RequestDispatcher dispatcher = this.getServletContext()
+							.getRequestDispatcher("/common_pages/product_details.jsp");
+					dispatcher.forward(request, response);
+					return;
+				} else if (action.equals("addCart"))
+				{
+					String id = request.getParameter("id");
+					int qty = cart.getProductQuantity(Integer.parseInt(id));
+					ProductBean product = new ProductBean();
+					product.setCode(Integer.parseInt(id));
+
+					ProductBean bean = model.doRetrieve(product);
+
+					if (bean != null && !bean.isEmpty() && (bean.getQuantity() - qty) - 1 >= 0)
+					{
+						cart.addItem(bean);
+						request.setAttribute("message", "Prodotto " + bean.getName() + " aggiunto al carrello.");
+					} else
+					{
+						request.setAttribute("message", "Prodotto " + bean.getName() + " non disponibile.");
+					}
+				}
+
+				else if (action.equals("insert"))
+				{
+					String name = request.getParameter("name");
+					String description = request.getParameter("description");
+					double price = Double.parseDouble(request.getParameter("price"));
+					int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+					ProductBean bean = new ProductBean();
+					bean.setName(name);
+					bean.setDescription(description);
+					bean.setPrice(price);
+					bean.setQuantity(quantity);
+
+					model.doSave(bean);
+					request.setAttribute("message", "Prodotto " + bean.getName() + " aggiunto con successo.");
+
+				} else if (action.equals("delete"))
+				{
+					String id = request.getParameter("id");
+
+					ProductBean product = new ProductBean();
+					product.setCode(Integer.parseInt(id));
+
+					ProductBean bean = model.doRetrieve(product);
+					if (bean != null && !bean.isEmpty())
+					{
+						model.doDelete(bean);
+						request.setAttribute("message", "Prodotto " + bean.getName() + " rimosso con successo.");
+					}
+				} else if (action.equals("update"))
+				{
+					String id = request.getParameter("id");
+					String name = request.getParameter("name");
+					String description = request.getParameter("description");
+					double price = Double.parseDouble(request.getParameter("price"));
+					int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+					ProductBean bean = new ProductBean();
+					bean.setCode(Integer.parseInt(id));
+					bean.setName(name);
+					bean.setDescription(description);
+					bean.setPrice(price);
+					bean.setQuantity(quantity);
+
+					model.doUpdate(bean);
+					request.setAttribute("message", "Prodotto " + bean.getName() + " aggiornato con successo");
+				}
+			}
+		} catch (SQLException | NumberFormatException e)
+		{
+			Utility.print(e);
+			request.setAttribute("error", e.getMessage());
+		}
+
+		session.setAttribute("cart", cart);
+
+		try
+		{
+
+			request.removeAttribute("products");
+			request.setAttribute("products", model.doRetrieveAll(sort));
+		} catch (SQLException e)
+		{
+			Utility.print(e);
+			request.setAttribute("error", e.getMessage());
+		}
+
+		if (page != null && page.equals("home"))
+		{
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common_pages/home.jsp");
+			dispatcher.forward(request, response);
+		} else
+		{
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common_pages/catalogue.jsp");
+			dispatcher.forward(request, response);
+		}
+
 	}
 
-	session.setAttribute("cart", cart);
-
-	try {
-
-	    request.removeAttribute("products");
-	    request.setAttribute("products", model.doRetrieveAll(sort));
-	} catch (SQLException e) {
-	    Utility.print(e);
-	    request.setAttribute("error", e.getMessage());
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		doGet(request, response);
 	}
-
-	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common_pages/catalogue.jsp");
-	dispatcher.forward(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-    {
-    	doGet(request, response);
-    }
 
 }

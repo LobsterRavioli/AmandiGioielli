@@ -252,8 +252,8 @@ public class OrderDAO implements GenericDAO<OrderBean>
 			while (rs.next())
 			{
 				orderId = rs.getInt(1) + 1;
-				order.setId(orderId);
 			}
+			order.setId(orderId);
 
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, order.getId());
@@ -268,11 +268,12 @@ public class OrderDAO implements GenericDAO<OrderBean>
 			preparedStatement.setDate(8, new java.sql.Date(millis));
 
 			Utility.print("doSave: " + preparedStatement.toString());
+
 			preparedStatement.executeUpdate();
 
 			for (OrderDetailBean product : order.getItems())
 			{
-				product.setOrderId(order.getId());
+				product.setOrderId(orderId);
 				Utility.print(product.toString());
 				model.doSave(product);
 				ProductBean temp = new ProductBean();

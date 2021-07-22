@@ -28,21 +28,19 @@
 
 <body>
 	   
-	<div>
+	<h2 class="heading-center">Crea un account</h2>
+	<span class="line-separator"></span>
+	<div class="login">
     	<form name="registration" action="<%=request.getContextPath()%>/RegistrationControl" method="post" id="registrationForm">
-		    <label for="name"><b>Nome</b></label>
-		    <input type="text" placeholder="Inserisci Nome" name="name" id="name" required="required">
+		    <input type="text" placeholder="Nome" name="name" id="name" required="required">
 		  
-		    <label for="surname"><b>Cognome</b></label>
-		    <input type="text" placeholder="Inserisci Cognome" name="surname"  id="surname" required="required">
+		    <input type="text" placeholder="Cognome" name="surname"  id="surname" required="required">
 		  
-		    <label for="email"><b>Email</b></label>
-		    <input type="text" placeholder="Inserisci Email" name="email" id="email" required="required">
+		    <input type="text" placeholder="Email" name="email" id="email" required="required">
 		
-   		    <label for="password"><b>Password</b></label>
-		    <input type="password" name="password" id="password" placeholder="Inserisci Password"  required="required">
+		    <input type="password" name="password" id="password" placeholder="Password"  required="required">
 		    
-		    <input type="submit" value="Crea un account">
+		    <button type="submit">Registrati</button>
 		    
 		</form>
 		
@@ -53,7 +51,7 @@
 		if(msg!=null)
 		{
 		%>
-			<p id="registrationLabel"><%=msg%></p>
+			<p id="registrationLabel" style="color: red"><%=msg%><i class="fas fa-exclamation-triangle"></i></p>
 		<%
 		} 
 		%>
@@ -62,7 +60,7 @@
 		if(msg==null)
 		{
 		%>
-			<p id="registrationLabel"></p>
+			<p id="registrationLabel" style="color: red"></p>
 		<%
 		} 
 		%>

@@ -67,6 +67,23 @@ public class ProductBean implements Serializable
 		return price;
 	}
 
+	public double getRealPrice()
+	{
+		double realPrice = (this.price - (this.price * this.discount / 100)) + (this.price * (this.taxRate / 100));
+
+		return (Math.floor(realPrice * 100) / 100);
+	}
+
+	public String getRealPriceString()
+	{
+		return Double.toString(this.getRealPrice()).replace('.', ',');
+	}
+
+	public String getRealPriceStringAll()
+	{
+		return Double.toString(this.getRealPrice() * quantity).replace('.', ',');
+	}
+
 	public void setPrice(double price)
 	{
 		this.price = price;

@@ -14,7 +14,7 @@
 	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
-		<script src="<%=request.getContextPath()%>/js/validation.js"></script>
+	<script src="<%=request.getContextPath()%>/js/validation.js"></script>
 </head>
 
 <body>
@@ -40,24 +40,24 @@
 	{
 	%>
 
-		<div>
+		<h2 class="heading-center login-page">Login</h2>
+		<span class="line-separator"></span>
+		<div class="login">
 			<form action="<%=request.getContextPath()%>/LoginControl" method="post" id="loginForm">
 	
-	    		<label for="email"><b>Email</b></label>
-	    		<input type="email" name="email" id="email" placeholder="Inserisci Email" required="required">
-				<label for="password"><b>Password</b></label>
-	   			<input type="password"  name="password" id="password" placeholder="Inserisci Password" required="required">
-	    		<input type="submit" value="Accedi">
+	    		<input type="email" name="email" id="email" placeholder="Email" required="required"><br>
+	   			<input type="password"  name="password" id="password" placeholder="Password" required="required"><br>
+	    		<button type="submit">Accedi</button>
 	    		
 			</form>
 		</div>
 		<br>
-		<a href="<%=request.getContextPath()%>/common_pages/registration.jsp">Non hai un account? Crealo subito</a>
-		
-		
 		<div>
-			<p id="loginLabel"></p>
+			<p id="loginLabel" style="color:red"></p>
 		</div>
+		<a class="registration-redirect" href="<%=request.getContextPath()%>/common_pages/registration.jsp">Non hai un account? Crealo subito</a>
+		
+	
 		<%
 		String message = (String)request.getAttribute("message");
 		if(message != null && !message.equals("")) 

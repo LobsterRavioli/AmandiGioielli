@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*,beans.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.*,beans.*"%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -24,43 +24,101 @@
 	 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/CartControl"));
 	 		return;
 	 	}	
-	%>
-	<h2>Carrello</h2>
-	<%
+		
 		List<ProductBean> prodcart = cart.getItems();
 	%>
+	<h2 class="heading-center">Carrello</h2>
+	<span class="line-separator"></span>
 
-	<table>
-		<tr>
-			<th>Nome</th>
-			<th>Quantit�</th>
-			<th></th>
-		</tr>	
+
+	<table class="cart-table-desktop">
+			<thead>
+				<tr>
+					<th></th>
+					<th></th>
+					<th>Prodotto</th>
+					<th>Prezzo</th>
+					<th>Quantit&agrave; </th>
+					<th>Subtotale</th>
+				</tr>	
+			</thead>
+			<tbody>
+			<%
+			int quantity = 0;
+				if(prodcart.size() > 0) {
+					for(ProductBean prod: prodcart) {
+						
+						
+			%>
+			
+					<tr>
+						<td><a href="<%=response.encodeURL(request.getContextPath() + "/CartControl?action=deleteCart&id=" + prod.getCode())%>"><i class="fas fa-times" style="color:red;"></i></a></td>
+						<td>
+							<div class="cart-info">
+								<img src="<%=prod.getUrl()%>">
+							</div>
+						</td>
+						<td><%=prod.getName()%></td>
+						<td><%=prod.getRealPriceString()%> &euro;</td>
+						<td><%=prod.getQuantity()%></td>
+						<td><%=prod.getRealPriceStringAll()%> &euro;</td>
+					</tr>
+				
+
+				
+		<% 		}
+			} else {
+		%>
+			<tr><td colspan="6">Nessun prodotto nel carrello</td></tr>
 		<%
-		int quantity = 0;
+			}
+		%>
+		</tbody>
+	</table>
+	
+	
+	<table class="cart-table-mobile">
+			<thead>
+				<tr>
+					<th></th>
+					<th></th>
+					<th>Quantit&agrave; </th>
+					<th>Subtotale</th>
+				</tr>	
+			</thead>
+		<tbody>
+		<%
 			if(prodcart.size() > 0) {
 				for(ProductBean prod: prodcart) {
 					
 					
 		%>
-				<tr>
-					<td><%=prod.getName()%></td>
-					<td><%=prod.getQuantity()%></td>
-					<td>
-						<a href="<%=response.encodeURL(request.getContextPath() + "/CartControl?action=deleteCart&id=" + prod.getCode())%>" class="catalogue-icons">
-							<img src="<%=request.getContextPath()%>/images/remove-from-catalogue.png">
-						</a>
-					</td>
-				</tr>
+			
+					<tr>
+						<td><a href="<%=response.encodeURL(request.getContextPath() + "/CartControl?action=deleteCart&id=" + prod.getCode())%>"><i class="fas fa-times" style="color:red;"></i></a></td>
+						<td>
+							<div class="cart-info">
+								<img src="<%=prod.getUrl()%>">
+							</div>
+						</td>
+						<td><%=prod.getQuantity()%></td>
+						<td><%=prod.getRealPriceStringAll()%> &euro;</td>
+					</tr>
 				
 		<% 		}
 			} else {
 		%>
-			<tr><td colspan="3">Nessun prodotto nel carrello</td></tr>
+			<tr><td colspan="6">Nessun prodotto nel carrello</td></tr>
 		<%
 			}
 		%>
+		</tbody>
 	</table>
+	
+	<div class="cart-total">
+		<h3>Totale (tasse applicate):</h3>
+		<p><%=Double.toString(cart.getTotalValue()).replace(".", ",")%> &euro;</p>
+	</div>
 	
 	<% 
 		if(prodcart.size() > 0) 
@@ -93,7 +151,11 @@
 		if(message != null && !message.equals("")) 
 		{
 	%>
-			<p style="color: white; margin-left: auto; margin-right: auto; background-color: green; padding: 5px;"><%=message %></p>
+			<div class="alert-cart">
+				<p><%=message %><i class="fas fa-check-circle"></i></p>
+			</div>
+			
+			
 	<%
 		}
 		if(error != null && !error.equals("")) 

@@ -17,6 +17,7 @@
 </head>
 <body>
 	<%@include file="../fragments/header.jsp" %>
+	
 	<h2>Ordine effettuato con successo!</h2>
 	<a href="<%=request.getContextPath()%>/common_pages/catalogue.jsp">Torna al catalogo</a>
 	<%@include file="../fragments/footer.jsp" %>

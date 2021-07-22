@@ -15,7 +15,7 @@
 			<span class="close-burger">&times;</span>
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/common_pages/home.jsp">Home</a></li>
-				<li class="has-children"><a href="<%=request.getContextPath()%>/common_pages/catalogue.jsp">Negozio</a>
+				<li class="has-children"><a href="<%=request.getContextPath()%>/common_pages/catalogue.jsp">Catalogo</a>
 					<ul class="sub-menu-mobile">
 						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=1">Anelli</a></li>
 						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=2">Bracciali</a></li>
@@ -41,7 +41,7 @@
 		<div id="search-overlay" class="overlay">
 			<div class="overlay-content">
     			<form id="search-container" action="<%=request.getContextPath()%>/Search">
-      				<input type="text" placeholder="Cerca..." name="search">
+      				<input type="text" placeholder="Cerca..." name="search" id="search-bar-header" autofocus>
       				<input type="hidden" name="action" value="common">
       				<button type="submit"><i class="fa fa-search"></i></button>
    				</form>
@@ -62,7 +62,7 @@
 		<nav class="menu">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/common_pages/home.jsp">Home</a></li>
-				<li class="has-children"><a href="<%=request.getContextPath()%>/common_pages/catalogue.jsp">Negozio <i class="fas fa-caret-down"></i></a>
+				<li class="has-children"><a href="<%=request.getContextPath()%>/common_pages/catalogue.jsp">Catalogo <i class="fas fa-caret-down"></i></a>
 					<ul class="sub-menu">
 						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=1">Anelli</a></li>
 						<li><a href="<%=request.getContextPath()%>/ProductControl?categoryId=2">Bracciali</a></li>
@@ -147,6 +147,7 @@
 				
 				$(".search-btn").click(function(){
 					$("#search-overlay").css({"visibility" : "visible", "opacity" : "1"});
+					$("#search-bar-header").focus();
 				});
 				
 			})

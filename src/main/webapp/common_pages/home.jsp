@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.*,beans.*"%>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +17,20 @@
 
 
 </head>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%
+
+	Collection<?> products = (Collection<?>) request.getAttribute("products");
+
+	String error = (String)request.getAttribute("error");
+	
+	if(products == null && error == null) 
+	{
+		response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/ProductControl?page=home"));
+		return;
+	}
+%>
+
 
 	<%@include file="../fragments/header.jsp"%>
 	
@@ -37,7 +52,7 @@
 					</p>
 				</div>
 				
-				<a class="cta" href="#">scopri di più</a>
+				<a class="cta" href="#">scopri di piÃ¹</a>
 	
 				<p class="free-shipping">Spedizioni e resi GRATIS</p>
 			</div>
@@ -67,22 +82,90 @@
 				</p>
 			</div>
 				
-			<a class="cta" href="#">scopri di più</a>
+			<a class="cta" href="#">scopri di piÃ¹</a>
 		</div>
 	</div>
 	
 	<div class="main-content">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at purus dictum, volutpat ante ac, sodales risus. Praesent ac sapien a tortor bibendum tincidunt. Vivamus sem neque, malesuada sit amet mauris vitae, aliquet pretium dolor. Curabitur id efficitur felis. Integer dui lacus, dapibus et tristique sit amet, convallis id dolor. Nam accumsan velit mi, at congue mauris commodo at. Ut consequat sagittis purus, vel condimentum nisi cursus sit amet. Mauris egestas ex sit amet ex pretium porta. Cras molestie, nunc eu convallis fringilla, erat sem viverra quam, sit amet tincidunt diam enim vel quam. Ut euismod tortor vitae dolor posuere semper.
+		<div class="small-container">
+				<h2>MUST HAVE</h2>
+				<div class="row">
+					
+					<%
+					if(products != null && products.size() > 0) 
+					{
+						Iterator<?> it = products.iterator();
+						for(int i=0; i<4; i++)
+						{
+						ProductBean bean = (ProductBean) it.next();
+				
+					%>
+							<div class="col-4">
+								<a href="<%=request.getContextPath()%>/ProductControl?action=details&id=<%=bean.getCode()%>"><img src="<%=bean.getUrl()%>"></a>
+								<h4><%=bean.getName()%></h4>
+								<div class="product-details">
+									<p><%=bean.getRealPriceString()%> &euro;</p>
+									<a href="<%=request.getContextPath()%>/ProductControl?action=details&id=<%=bean.getCode()%>" class="add-cart-home">Dettagli</a>
+								</div>
+							</div>
+						
+					<%
+						}
+					}
+					%>
+				</div>
+
+		</div>
 		
-		Praesent dictum mi sed dolor ultricies tempus. Fusce nec gravida neque. Vestibulum at sodales lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla lacus metus, sodales ac molestie in, dictum vel arcu. Donec eget egestas nibh. Maecenas at fringilla libero. In eu accumsan ipsum. Pellentesque in nisl elit. Donec gravida massa sit amet iaculis auctor. Aenean imperdiet elementum velit, nec lacinia est congue vitae. Etiam posuere mollis dui ac pellentesque. Donec sed sagittis leo, et porta lacus. Maecenas placerat blandit nunc vitae fringilla. Aenean consequat ut nisi ut pretium.
-		
-		Etiam sem neque, luctus et nulla vel, maximus convallis purus. Praesent ut tellus suscipit, euismod nulla sed, tincidunt ipsum. Cras tellus mi, rutrum sit amet sapien eu, volutpat dignissim nunc. Quisque aliquam hendrerit dictum. Fusce tincidunt tellus nec mauris molestie, aliquam tincidunt elit molestie. Nam fringilla viverra congue. Mauris porta mi nec quam accumsan, sed suscipit leo accumsan. Sed eu arcu eget metus volutpat molestie. Suspendisse sit amet turpis facilisis, mattis odio et, laoreet magna.
-		
-		In tempus enim sit amet faucibus malesuada. Praesent vehicula tempor magna quis mattis. Phasellus orci enim, imperdiet non venenatis a, viverra non libero. Nunc pharetra risus tellus, ac dapibus velit posuere a. Maecenas et diam bibendum, iaculis lacus sit amet, commodo massa. Vivamus eget augue ut ligula porta fermentum. Morbi rutrum at lacus quis vestibulum. Ut tortor lacus, vestibulum non purus a, ultricies viverra urna. Cras lorem augue, sodales sit amet ullamcorper sit amet, consectetur a purus. Sed pretium arcu et eros consectetur porta. Duis aliquam gravida ipsum id luctus. Nullam at lectus lectus.
-		
-		Proin imperdiet molestie varius. Mauris ac elit eget neque maximus volutpat. Morbi sed posuere erat, eu fringilla metus. Nunc hendrerit vehicula libero, in sollicitudin est efficitur sit amet. Proin feugiat dictum quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam enim orci, imperdiet quis vehicula sed, finibus non erat. Morbi euismod sed urna nec cursus. Curabitur tempus enim mi, rhoncus facilisis elit luctus quis. Pellentesque consequat malesuada erat vel aliquet. Aenean volutpat dui ligula, sit amet sagittis quam suscipit eget. Maecenas leo turpis, mollis a dolor sed, fermentum semper lorem. Quisque nisi tortor, luctus suscipit sem in, blandit tincidunt nibh. Pellentesque euismod nulla turpis, et vehicula odio aliquam sed. Nam leo felis, ornare sit amet arcu nec, sagittis eleifend orci. Nullam tempor, mi sit amet bibendum gravida, nisi felis consectetur magna, vitae blandit ipsum diam sed sem.
-		
+		<div class="other-content">
+			<div class="chiasma">
+				<div class="text">
+					<h3>SAMPLE TEXT</h3>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ornare dui et pellentesque varius. 
+						Ut eu velit nulla. Aliquam a pretium felis. Curabitur augue tellus, varius ut elementum vitae, porttitor sed tellus. 
+						Pellentesque molestie euismod nunc.  
+					</p>
+				</div>
+				<div class="image">
+					<img src="<%=request.getContextPath()%>/images/ornamental.jpg">
+				</div>
+			</div>
+			
+			<div class="parallax">
+				<div class="text parallax">
+					<h3>SAMPLE TEXT</h3>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ornare dui et pellentesque varius. 
+						Ut eu velit nulla. Aliquam a pretium felis. Curabitur augue tellus, varius ut elementum vitae, porttitor sed tellus. 
+						Pellentesque molestie euismod nunc. Vivamus sit amet tortor a tortor aliquam vestibulum eu et dui. 
+						Donec congue massa sollicitudin odio consectetur dignissim. Maecenas id eleifend quam. 
+						Phasellus pharetra elementum tortor vel convallis. Ut ac odio lorem. 
+					</p>
+				</div>
+			</div>
+			
+			
+			<div class="chiasma">
+				<div class="image">
+					<div class="image">
+						<img src="<%=request.getContextPath()%>/images/butterfly-effect.jpg">
+					</div>
+				</div>
+				<div class="text">
+					<h3>SAMPLE TEXT</h3>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ornare dui et pellentesque varius. 
+						Ut eu velit nulla. Aliquam a pretium felis. Curabitur augue tellus, varius ut elementum vitae, porttitor sed tellus. 
+						Pellentesque molestie euismod nunc.  
+					</p>
+				</div>
+			</div>
+			
+		</div>
 	</div>
+	
+	
 	
 
 	<%@include file="../fragments/footer.jsp" %>

@@ -25,87 +25,84 @@
 <body>
 	<%@ include file="../fragments/header.jsp"%>
 	<%@ include file="../fragments/user_sidebar.jsp"%>
-	<h3>Indirizzi:</h3>
-		<div id ="displayResult">
-	<%
-
-			Collection<?> addresses = (Collection<?>) request.getAttribute("addresses");
- 			String error = (String)request.getAttribute("error");
-			if(addresses == null) 
-			{
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/DashBoard?scope=addresses"));
-				return;
-			}
+	
+	<div class="welcome-dashboard">
+		<h3>Indirizzi:</h3>
+			<div id ="displayResult">
+		<%
+	
+				Collection<?> addresses = (Collection<?>) request.getAttribute("addresses");
+	 			String error = (String)request.getAttribute("error");
+				if(addresses == null) 
+				{
+					response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/DashBoard?scope=addresses"));
+					return;
+				}
+				
+				Iterator<?> it = addresses.iterator();
+				while(it.hasNext()) {
+					AddressBean address = (AddressBean) it.next();	
+		%>	
+					<p> <%=address.getStreetAddress() + " - "  + address.getCity() + " - " + address.getProvince() + " - " + address.getZip() + " - " + address.getPhone() %> </p> 
+				
+		<%		 		
+				}
+		%>
+		</div>
+			<h3>Metti un nuovo indirizzo:</h3>
+			<form action="" id="addressForm">
 			
-			Iterator<?> it = addresses.iterator();
-			while(it.hasNext()) {
-				AddressBean address = (AddressBean) it.next();	
-	%>	
-				<p> <%=address.getCity() + " " + address.getStreetAddress() + " " + address.getAddressNumber() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %> </p> 
+				<div id="result">
+				</div>
+				
+					<input type="text"
+				         class="form-control" 
+				         id="street"
+				         name="street"
+				         placeholder="Via">
+				  
+				  <input type="text"
+				         class="form-control" 
+				         id="city"
+				         name="city"
+				         placeholder="Città">
+				         
+				  
+				  <input type="text" 
+				         class="form-control" 
+				         id="province"
+				         name="province"
+				         placeholder="Provincia"
+				         maxlength="2">
+				  
+				  <input type="text" 
+				         class="form-control" 
+				         id="zip"
+				         name="zip"
+				         placeholder="Zip">
+				         
+				   <input type="text" 
+				         class="form-control" 
+				         id="phone"
+						 name="phone"
+				         placeholder="Telefono">
+		  
+				  <button type="submit">Inserisci</button>
+	
+			</form>
 			
-	<%		 		
-			}
-	%>
-	</div>
-		<h3>Metti un nuovo indirizzo:</h3>
-		<form action="" id="addressForm">
-		
-			<div id="result">
+			<div>
+				<%
+					if(error != null)
+					{
+				%>
+						<p><%=error%></p>
+				<% 	
+					}
+				%>
+			
+	
 			</div>
-			
-				<input type="text"
-			         class="form-control" 
-			         id="street"
-			         name="street"
-			         placeholder="Via">
-			  
-			  <input type="text"
-			         class="form-control" 
-			         id="city"
-			         name="city"
-			         placeholder="Città">
-			         
-			  
-			  <input type="text" 
-			         class="form-control" 
-			         id="province"
-			         name="province"
-			         placeholder="Provincia">
-			  
-			  <input type="text" 
-			         class="form-control" 
-			         id="zip"
-			         name="zip"
-			         placeholder="Zip">
-			         
-			   <input type="text" 
-			         class="form-control" 
-			         id="phone"
-					 name="phone"
-			         placeholder="Telefono">
-	  
-			  <input type="submit" value="form">
-
-		</form>
-		
-		<div>
-			<%
-				if(error != null)
-				{
-			%>
-					<p><%=error%></p>
-			<% 	
-				}
-			%>
-			
-			<%
-				if(error == null)
-				{
-			%>
-					<p id="addressLabel"></p>
-			<% 	
-				}
-			%>
 		</div>
 		
 		

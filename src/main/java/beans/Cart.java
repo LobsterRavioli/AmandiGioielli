@@ -2,91 +2,90 @@ package beans;
 
 import java.util.ArrayList;
 
-
 public class Cart
 {
 	ArrayList<ProductBean> items;
 
-	public Cart() 
+	public Cart()
 	{
 		items = new ArrayList<ProductBean>();
 	}
 
-	public void addItem(ProductBean item) 
-    {
-        if(items.contains(item))
-        {
-            ProductBean product = (ProductBean) items.get(items.indexOf(item));
-            product.setQuantity(product.getQuantity() + 1);
-            return;
-        }
-        
-        
-        ((ProductBean) item).setQuantity(1);
-        items.add(item);
-    }
+	public void addItem(ProductBean item)
+	{
+		if (items.contains(item))
+		{
+			ProductBean product = (ProductBean) items.get(items.indexOf(item));
+			product.setQuantity(product.getQuantity() + 1);
+			return;
+		}
 
-	public void deleteItem(ProductBean item) 
+		((ProductBean) item).setQuantity(1);
+		items.add(item);
+	}
+
+	public void deleteItem(ProductBean item)
 	{
 		items.remove(item);
 	}
-	
+
 	public void removeOneItem(ProductBean item)
 	{
-        if(items.contains(item))
-        {
-            ProductBean product = (ProductBean) items.get(items.indexOf(item));
-            
-            if(product.getQuantity() - 1 > 0)
-            	product.setQuantity(product.getQuantity() - 1);
-            else
-            	deleteItem(item);  
-        }
-        
-        else
-        	deleteItem(item);
+		if (items.contains(item))
+		{
+			ProductBean product = (ProductBean) items.get(items.indexOf(item));
+
+			if (product.getQuantity() - 1 > 0)
+				product.setQuantity(product.getQuantity() - 1);
+			else
+				deleteItem(item);
+		}
+
+		else
+			deleteItem(item);
 
 	}
+
 	public ArrayList<ProductBean> getItems()
 	{
 		return items;
 	}
-	
+
 	public int getTotalQuantity()
 	{
-		int tot=0;
-		for(ProductBean product : items)
+		int tot = 0;
+		for (ProductBean product : items)
 		{
-			tot+=product.getQuantity();
+			tot += product.getQuantity();
 		}
 		return tot;
 	}
-	
+
 	public int getProductQuantity(int id)
 	{
 		int qty = 0;
-		for(ProductBean product : items)
+		for (ProductBean product : items)
 		{
-			if(product.getCode() == id)
-				qty=product.getQuantity();
+			if (product.getCode() == id)
+				qty = product.getQuantity();
 		}
-		
+
 		return qty;
 	}
 
-	public void deleteItems() 
+	public void deleteItems()
 	{
 		items.clear();
 	}
-	
-	public double totalValue() 
+
+	public double getTotalValue()
 	{
 		double tot = 0;
-		for(ProductBean item : items) 
-			tot += item.getPrice();
-		
-		
-		return tot;
+		for (ProductBean item : items)
+			tot += (item.getRealPrice() * item.getQuantity());
+
+		return (Math.floor(tot * 100) / 100);
+
 	}
-	
+
 }

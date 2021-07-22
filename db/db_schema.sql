@@ -194,6 +194,45 @@ create table if not exists wishlist_item
 			on update cascade on delete cascade
 );
 
-INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate) VALUES ("Orecchini Ginkgo","Orecchini realizzati a mano in Argento Sterling 925 rodiato","",3,150, 22);
-INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate) VALUES ("Anello Ginkgo","Anello realizzato a mano in Argento Sterling 925 dorato","",2,80, 22);
-INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate) VALUES ("Orecchini Sunflowers","Orecchini realizzati a mano in Argento Sterling 925 rosato","",1,99, 22);
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Orecchini Ginkgo','Orecchini realizzati a mano in Argento Sterling 925 brunito, pietre dure semipreziose, cubic zirconia bianchi','Orecchini in argento brunito, pietre dure.',3, 140.70, 22, '/AmandiGioielli/images/products/orecchini-ginkgo.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Anello Ginkgo','Anello realizzato a mano in Argento Sterling 925 brunito, pietre dure semipreziose, cubic zirconia bianchi','Anello in argento brunito, pietre dure.',5, 44.80, 22, '/AmandiGioielli/images/products/anello-ginkgo.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Bracciale Ginkgo','Bracciale realizzato a mano in Argento Sterling 925 brunito, pietre dure semipreziose, cubic zirconia bianchi','Bracciale in argento brunito, pietre dure.',6, 157.50, 22, '/AmandiGioielli/images/products/bracciale-ginkgo.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Orecchini Caligo Uranus','Orecchini realizzati a mano in Argento Sterling 925 rosato, pietre dure semipreziose, cubic zirconia bianchi, perle di acqua dolce, smalti a freddo dipinti a mano','Orecchini in argento rosato, pietre dure, perle, smalti.',5, 102.20, 22, '/AmandiGioielli/images/products/orecchini-caligo-uranus.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Collana Caligo Uranus','Collana realizzata a mano in Argento Sterling 925 rosato, pietre dure semipreziose, cubic zirconia bianchi, madreperla incisa a mano, smalti a freddo dipinti a mano','Collana in argento rosato, pietre dure, madreperla, smalti.',7, 123.20, 22, '/AmandiGioielli/images/products/collana-caligo-uranus.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Collana Turkish Ornamental','Collana realizzata a mano in Argento Sterling 925 dorato, pietre dure semipreziose, perle di acqua dolce, smalti a freddo dipinti a mano','Collana in argento dorato, pietre dure, perle, smalti.',6, 70, 22, '/AmandiGioielli/images/products/collana-turkish-ornamental.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Orecchini Turkish Ornamental','Orecchini realizzati a mano in Argento Sterling 925 dorato, pietre dure semipreziose, perle di acqua dolce, smalti a freddo dipinti a mano','Orecchini in argento dorato, pietre dure, perle, smalti.',4, 197.75, 22, '/AmandiGioielli/images/products/orecchini-turkish-ornamental.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Anello Tropical Fish','Anello realizzato a mano in Argento Sterling 925 rodiato, pietre dure semipreziose, smalti a freddo dipinti a mano','Anello in argento rodiato, pietre dure, smalti.',6, 51.10, 22, '/AmandiGioielli/images/products/anello-tropical-fish.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Collana Tropical Fish','Collana realizzata a mano in Argento Sterling 925 rodiato, pietre dure semipreziose, perle di acqua dolce, smalti a freddo dipinti a mano','Collana in argento rodiato, pietre dure, perle, smalti.',6, 70.70, 22, '/AmandiGioielli/images/products/collana-tropical-fish.jpg');
+INSERT INTO product (product_name,description,short_description,quantity,price,tax_rate, url) VALUES ('Bracciale Tropical Fish','Bracciale realizzato a mano in Argento Sterling 925 rodiato, pietre dure semipreziose, perle di acqua dolce, smalti a freddo dipinti a mano','Bracciale in argento rodiato, pietre dure, perle, smalti.',4, 50.60, 22, '/AmandiGioielli/images/products/bracciale-tropical-fish.jpg');
+
+
+INSERT INTO category (name, description) VALUES ('Anelli', '');
+INSERT INTO category (name, description) VALUES ('Bracciali', '');
+INSERT INTO category (name, description) VALUES ('Collane & Pendenti', '');
+INSERT INTO category (name, description) VALUES ('Orecchini', '');
+INSERT INTO category (name, description) VALUES ('Naturalis Mundi', '');
+INSERT INTO category (name, description) VALUES ('The Blue', '');
+INSERT INTO category (name, description) VALUES ('Ornamental', '');
+INSERT INTO category (name, description) VALUES ('Butterfly Effect', '');
+
+
+INSERT INTO product_categories (product_id, category_id) VALUES (1,5);
+INSERT INTO product_categories (product_id, category_id) VALUES (1,4);
+INSERT INTO product_categories (product_id, category_id) VALUES (2,5);
+INSERT INTO product_categories (product_id, category_id) VALUES (2,1);
+INSERT INTO product_categories (product_id, category_id) VALUES (3,5);
+INSERT INTO product_categories (product_id, category_id) VALUES (3,2);
+INSERT INTO product_categories (product_id, category_id) VALUES (4,4);
+INSERT INTO product_categories (product_id, category_id) VALUES (4,8);
+INSERT INTO product_categories (product_id, category_id) VALUES (5,3);
+INSERT INTO product_categories (product_id, category_id) VALUES (5,8);
+INSERT INTO product_categories (product_id, category_id) VALUES (6,3);
+INSERT INTO product_categories (product_id, category_id) VALUES (6,7);
+INSERT INTO product_categories (product_id, category_id) VALUES (7,7);
+INSERT INTO product_categories (product_id, category_id) VALUES (7,4);
+INSERT INTO product_categories (product_id, category_id) VALUES (8,1);
+INSERT INTO product_categories (product_id, category_id) VALUES (8,6);
+INSERT INTO product_categories (product_id, category_id) VALUES (9,3);
+INSERT INTO product_categories (product_id, category_id) VALUES (9,6);
+INSERT INTO product_categories (product_id, category_id) VALUES (10,2);
+INSERT INTO product_categories (product_id, category_id) VALUES (10,6);

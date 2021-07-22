@@ -14,6 +14,7 @@
 	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
+		<script src="<%=request.getContextPath()%>/js/zoom.js"></script>
 </head>
 <body>
 	<%@include file="../fragments/header.jsp" %>
@@ -21,31 +22,65 @@
 		ProductBean product = (ProductBean) request.getAttribute("product");
 	%>
 
-	<h2>Dettagli</h2>
-	<table>
-		<tr>
-			<th>Codice</th>
-			<th>Nome</th>
-			<th>Descrizione</th>
-			<th>Prezzo</th>
-			<th>Iva</th>
-			<th>Quantità</th>
-			<th> </th>
-		</tr>
-		<tr>
-			<td><%=product.getCode()%></td>
-			<td><%=product.getName()%></td>
-			<td><%=product.getDescription()%></td>
-			<td><%=product.getPrice()%> &#8364;</td>
-			<td><%=(product.getTaxRate() /100) * product.getPrice()%> &#8364;</td>
-			<td><%=product.getQuantity()%></td>
-			<td>							
-				<a href="<%=response.encodeURL("ProductControl?action=addCart&id=" + product.getCode())%>" class="catalogue-icons">
-					<img src="./images/add-to-cart.png" alt="Add product to shopping cart">
-				</a>	
-			</td>
-		</tr>
-	</table>
+	
+	<div class="single-product">
+		<div class="row">
+			<div class="col-2">
+				<div id="product-img" style="background-image: url(<%=product.getUrl()%>)"></div>
+			</div>
+			<div class="col-2">
+				<div class="product-text">
+					<h1><%=product.getName()%></h1>
+					<p>
+						<%=product.getShortDescription()%>
+					</p>
+					<div class="price-content">
+						<h4>&euro; <%=product.getRealPriceString()%></h4>
+						<p>IVA inclusa</p><br>
+					</div>
+						<%
+							if(product.getQuantity() > 0)
+							{
+						%>
+								<p class="available">Disponibile<i class="fas fa-check"></i></p> 
+			
+								<a href="<%=request.getContextPath()%>/ProductControl?action=addCart&id=<%=product.getCode()%>">ACQUISTA</a>
+						<%
+							}
+							else
+							{
+						%>		
+							<p class="available">Non disponibile<i class="fas fa-times"></i></p>
+							<a href="#" class="product-out-of-stock">ACQUISTA</a>
+						<%	
+							}
+						%>
+						
+						<p><%=product.getDescription()%>.</p>
+						
+						<div class="product-icons">
+							<ul>
+								<li>
+									<i class="fas fa-shipping-fast"></i>Spedizione gratis in tutta Italia.
+								</li>
+								<li>
+									<i class="fas fa-envelope"></i>Supporto clienti 24/24.
+								</li>
+								<li>
+									<i class="fas fa-undo-alt"></i>Reso garantito.
+								</li>
+							</ul>
+						</div>
+					
+
+				</div>
+				
+
+
+			</div>
+		</div>
+	</div>
+
 	
 	
 	<%@include file="../fragments/footer.jsp" %>

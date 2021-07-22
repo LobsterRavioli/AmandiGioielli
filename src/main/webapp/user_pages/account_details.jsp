@@ -29,35 +29,39 @@
 	%>
 	<%@ include file="../fragments/header.jsp"%>
 	<%@ include file="../fragments/user_sidebar.jsp"%>
-		<h3>Informazioni Account</h3>
+
 	
-		<form action="<%=request.getContextPath()%>/DashBoard" method="POST" id="accountModifyForm">
-	
-			<input type="hidden" name="scope" value="account">
-			
-			
-			<label for="firstName">Nome:</label><br>
-			<input type="text" id="firstName" name="firstName" value="<%=user.getFirstName()%>" required><br>
+		<div class="welcome-dashboard">
+			<h3>Informazioni Account</h3>
+			<form action="<%=request.getContextPath()%>/DashBoard" method="POST" id="accountModifyForm">
 		
-			<label for="lastName">Cognome:</label><br>
-			<input type="text" id="lastName" name="lastName" value="<%=user.getLastName()%>" required><br>	
-	
-			<label for="email">Email:</label><br>
-			<input type="email" id="email" name="email" value="<%=user.getEmail()%>" required><br>
+				<input type="hidden" name="scope" value="account">
+				
+				
+				<label for="firstName">Nome:</label><br>
+				<input type="text" id="firstName" name="firstName" value="<%=user.getFirstName()%>" required><br>
 			
-			<label for="password">Password:</label><br>
-			<input type="password" id="password" name="password" value="<%=user.getPassword()%>" required><br>
-			
-			<label for="phone">Telefono:</label><br>
-			<input type="text" id="phone" name="phone" value="<%=user.getPhone()%>" required><br>
-			
-			<button type="submit">Apporta modifiche</button>
-			
-		</form>
+				<label for="lastName">Cognome:</label><br>
+				<input type="text" id="lastName" name="lastName" value="<%=user.getLastName()%>" required><br>	
 		
-		<div>
-			<p id="accountModifyLabel"></p>
+				<label for="email">Email:</label><br>
+				<input type="email" id="email" name="email" value="<%=user.getEmail()%>" required><br>
+				
+				<label for="password">Password:</label><br>
+				<input type="password" id="password" name="password" value="<%=user.getPassword()%>" required><br>
+				
+				<label for="phone">Telefono:</label><br>
+				<input type="text" id="phone" name="phone" value="<%=user.getPhone()%>" required><br>
+				
+				<button type="submit">Apporta modifiche</button>
+				
+			</form>
+			<div>
+				<p id="accountModifyLabel" style="color: red;"></p>
+			</div>
 		</div>
+		
+
 		
 	<%@ include file="../fragments/footer.jsp"%>
 </body>

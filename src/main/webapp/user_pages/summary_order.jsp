@@ -78,9 +78,10 @@
 				
 	%>	
 		<div id ="displayResult">
-				<p> <%=address.getZip() + " " + address.getStreetAddress() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %> </p> 
-				<input type="radio" name="radios" value="<%=address.getZip() + " " + address.getStreetAddress() + " " + address.getCity() + " " + address.getProvince() + " " + address.getPhone() %>"
+				
+				<input type="radio" name="radios" value="<%=address.getStreetAddress() + " - " + address.getCity() + " - " + address.getProvince() + " - "+ address.getZip()  + " - " + address.getPhone()%>"
 				 checked>
+				 <p class="address-radio"> <%=address.getStreetAddress() + " - " + address.getCity() + " - " + address.getProvince() + " - "+ address.getZip()  + " - " + address.getPhone() %> </p> 
 		</div>
 
 			
@@ -89,49 +90,51 @@
 			}
 	%>
 		<input type="hidden" name="action" value="noForm">
-		<input type="submit">
+		<button type="submit" id="finish-order">Acquista</button>
 		</form>
 	<%	
 		}
 		else{
 	%>
-		<form action="<%=request.getContextPath()%>/SummaryOrderControl">
-		<h3>Registra un indirizzo! </h3>
+		<h3 id="address-heading">Registra un indirizzo! </h3>
+		<form action="<%=request.getContextPath()%>/SummaryOrderControl" id="addressOrderForm">
+
 		<div id="result"></div>
 		
-			<input type="text"
-		         class="form-control" 
-		         id="street"
-		         name="street"
-		         placeholder="Via">
-		  
-		  <input type="text"
-		         class="form-control" 
-		         id="city"
-		         name="city"
-		         placeholder="Città">
-		         
-		  
-		  <input type="text" 
-		         class="form-control" 
-		         id="province"
-		         name="province"
-		         placeholder="Provincia">
-		  
-		  <input type="text" 
-		         class="form-control" 
-		         id="zip"
-		         name="zip"
-		         placeholder="Zip">
-		         
-		   <input type="text" 
-		         class="form-control" 
-		         id="phone"
-				 name="phone"
-		         placeholder="Telefono">
-	
-		  <input type="hidden" name="action" value="form">   
-		  <input type="submit" value="form">
+			  <input type="text"
+			         class="form-control" 
+			         id="street"
+			         name="street"
+			         placeholder="Via">
+			  
+			  <input type="text"
+			         class="form-control" 
+			         id="city"
+			         name="city"
+			         placeholder="Città">
+			         
+			  
+			  <input type="text" 
+			         class="form-control" 
+			         id="province"
+			         name="province"
+			         maxlength="2"
+			         placeholder="Provincia">
+			  
+			  <input type="text" 
+			         class="form-control" 
+			         id="zip"
+			         name="zip"
+			         placeholder="Zip">
+			         
+			   <input type="text" 
+			         class="form-control" 
+			         id="phone"
+					 name="phone"
+			         placeholder="Telefono">
+		
+			  <input type="hidden" name="action" value="form">   
+			  <button type="submit">Registra</button>
 
 		</form>
 

@@ -440,7 +440,7 @@ header{
   height: 100%;
 }
 
-.col-2 img{
+.hero-section .col-2 img{
   width: 80%;
   margin-left: 20%;
 }
@@ -713,7 +713,6 @@ footer{
   justify-content: space-evenly;
   background-color: #454545;
   padding: 1.875em;
-  margin-top: 1.875em;
 }
 
 .footer-icons i{
@@ -850,7 +849,670 @@ footer{
 
 
   
+/* ====================== MAIN CONTENT ==========================*/
+
+.small-container h2 {
+    text-align: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.col-4{
+	flex-basis: 25%;
+	padding: 10px;
+	min-width: 200px;
+	margin-bottom: 50px;
+}
+
+.col-4 img{
+	width: 100%;
+}
+
+.col-4 h4{
+    text-align: center;
+    font-size: 22px;
+    margin-top: 20px;
+    font-weight: 600;
+}
 
 
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-details p{
+    position: relative;
+    font-size: 21px;
+}
+.add-cart-home{
+    background-color: #00ddc9;
+    color: #454545;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-align: center;
+    transition: .4s;
+    cursor: pointer;
+}
+.add-cart-home:hover{
+    background-color: #00ffea;
+}
+
+
+.chiasma{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-around;
+	height: 24.7vw;
+}
+
+.chiasma .text {
+    flex-basis: 50%;
+    padding: 30px;
+    background-color: #e6e6e6;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.chiasma .image{
+	flex-basis: 50%;
+	height:100%;
+	width:100%;
+}
+
+.parallax {
+  /* The image used */
+  background-image: url("../images/infinite-passion.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.parallax.text{
+	padding: 150px;
+}
+
+
+
+.parallax.text p{
+	color: #fff;
+	text-align: justify;
+}
+
+.parallax.text h3{
+	text-align: center;
+	color: #fff;
+	font-weight: 500;
+	letter-spacing: 5px;
+	font-size: 3em;
+}
+@media screen and (max-width: 700px) {
+	.other-content{
+		display: none;
+	}
+}
+
+.big-container{
+	padding: 5%;
+}
+
+.heading-center {
+    text-align: center;
+    font-weight: 300;
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+.line-separator{
+	border-bottom: 2px solid #00ddc9;
+    width: 30px;
+    height: 5px;
+    margin: auto;
+    display: block;
+    margin-bottom: 40px;
+}
+
+
+.single-product{
+	margin-top: 80px;
+}
+
+
+#product-img{
+	padding-top: 72%;
+    width: 75%;
+    margin-left: 15%;
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#product-img:hover{
+	background-size: 200%;
+}
+
+
+.single-product .col-2{
+	padding: 20px;
+}
+.single-product .col-2 .product-text{
+	margin-left: 20px;
+}
+
+.single-product h4 {
+    margin: 20px 0;
+    font-size: 40px;
+    font-weight: 500;
+    color: #00ddc9;
+    display:inline;
+}
+.single-product .price-content p{
+	display:inline;
+	margin-left: 10px;
+}
+.single-product .price-content{
+	margin-bottom: 20px;
+}
+
+.single-product .col-2 h1{
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.single-product p{
+	margin-bottom: 30px;
+}
+
+.single-product .available{
+	font-weight: 700;
+}
+.single-product .available i{
+	margin-left: 10px;
+}
+.single-product a{
+	padding: 10px 20px;
+	background-color: #00ddc9;
+	color: #454545;
+	transition: .4s;
+	margin-bottom: 30px;
+	display: inline-block;
+	border-radius: 20px;
+    box-shadow: 0px 10px 20px -8px rgb(0 0 0 / 30%);
+}
+.single-product .product-out-of-stock{
+	cursor: default;
+	background-color:#a1a1a1; 
+}
+.single-product .product-out-of-stock:hover{
+	cursor: default;
+	background-color:#a1a1a1; 
+}
+
+.single-product a:hover{
+    background-color: #00ffea;
+}
+
+.single-product .product-icons li{
+	padding: 10px;
+}
+.single-product .product-icons li i{
+	margin-right: 20px;
+	font-size: 20px;
+}
+
+table{
+	width:90%;
+	border-collapse: collapse;
+	margin: auto;
+}
+
+th {
+    text-align: left;
+    padding: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 300;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+}
+td{
+	padding: 10px 5px;
+}
+
+td img{
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+}
+
+tbody{
+    border-bottom: 1px solid #e6e6e6;
+}
+.cart-button{
+	display: flex;
+	justify-content: center;
+}
+.cart-button a{
+	padding: 10px 20px;
+	background-color: #00ddc9;
+	color: #454545;
+	transition: .4s;
+	margin-bottom: 30px;
+	display: inline-block;
+	border-radius: 20px;
+    box-shadow: 0px 10px 20px -8px rgb(0 0 0 / 30%);
+    margin: 30px 10px;
+}
+
+.cart-button a:hover{
+    background-color: #00ffea;
+}
+.cart-table-mobile {
+	display: none;
+	margin: auto;
+}
+
+
+@media screen and (max-width: 792px) {
+	.cart-table-mobile {
+		display: table;
+	}
+	.cart-table-desktop{
+		display:none;
+	}
+}
+
+.cart-total{
+	display: flex;
+	flex-direction: column;
+	align-items:flex-end;
+	width: 90%;
+	margin: 30px 0;
+	
+}
+
+.cart-total h3 {
+    font-weight: 300;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 1.7em;
+}
+
+.cart-total p{
+	font-size: 2em;
+	font-weight: 700;
+}
+
+.alert-cart{
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+}
+.alert-cart p{
+ 	color: #369151;
+ 	font-size: 1.3em;
+}
+
+.alert-cart p i{
+ 	margin-left: 10px;
+}
+
+.heading-center.login-page{
+	margin-top: 100px;
+}
+.login{
+	display: flex;
+	justify-content: center;
+}
+#loginForm{
+  background-color: white;
+  padding: 40px 30px 0px 30px;
+  border-radius: 10px;
+  width: 400px;
+}
+
+#loginForm input[type=email],
+#loginForm input[type=password]{
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    padding: 10px 10px;
+    margin: 15px -10px;
+}
+
+#loginForm button{
+    cursor: pointer;
+    color: #454545;
+    font-size: 16px;
+    text-transform: uppercase;
+    background-color: #00ddc9;
+	margin: 0;
+	padding: 10px 0px;
+	width: 100px;
+	border-radius: 5px;
+	border: 0;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: .4s;
+}
+
+#loginForm button:hover{
+    background-color: #00ffea;
+}
+
+.registration-redirect{
+	font-size: 1.3em;
+	color: #00ddc9;
+	text-align: center;
+	transition: .4s;
+	display: flex;
+	justify-content: center;
+	margin-bottom:250px;
+}
+
+.registration-redirect:hover{
+	color: #00ffea;
+}
+
+#loginLabel{
+	font-size: 1em;
+	display: flex;
+	justify-content: center;
+	
+}
+
+#loginLabel i{
+	margin-left: 10px;
+}
+	
+	
+#registrationForm{
+  background-color: white;
+  padding: 40px 30px 0px 30px;
+  border-radius: 10px;
+  width: 400px;
+}
+
+#registrationForm input[type=text],
+#registrationForm input[type=email],
+#registrationForm input[type=password]{
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    padding: 10px 10px;
+    margin: 15px -10px;
+}
+
+#registrationForm button{
+    cursor: pointer;
+    color: #454545;
+    font-size: 16px;
+    text-transform: uppercase;
+    background-color: #00ddc9;
+	margin: 24px 0px;
+	padding: 10px 0px;
+	width: 125px;
+	border-radius: 5px;
+	border: 0;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: .4s;
+}
+
+#registrationForm button:hover{
+    background-color: #00ffea;
+}
+
+
+#registrationLabel{
+	font-size: 1em;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 250px;
+	
+}
+
+#registrationLabel i{
+	margin-left: 10px;
+}
+
+
+.user-sidebar{
+	float: left;	
+	z-index: 20;
+	border-right: 2px solid #e6e6e6;
+}
+
+.user-sidebar a{
+	display: block;
+	color: #464646;
+	font-size: 1.3em;
+	padding: 20px;
+	transition: .4s;
+	font-weight: 600;
+}
+
+.user-sidebar a:hover{
+	color: #8a8a8a;
+}
+
+.welcome-dashboard{
+	margin-left: 350px;
+	margin-bottom: 500px;
+	margin-top: 20px;
+}
+
+
+#addressForm{
+  background-color: white;
+  padding: 40px 30px 0px 30px;
+  border-radius: 10px;
+  width: 400px;
+}
+
+#addressForm input[type=text],
+#addressForm input[type=email],
+#addressForm input[type=password]{
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    padding: 10px 10px;
+    margin: 15px -10px;
+}
+
+#addressForm button{
+    cursor: pointer;
+    color: #454545;
+    font-size: 16px;
+    text-transform: uppercase;
+    background-color: #00ddc9;
+	margin: 24px 0px;
+	padding: 10px 0px;
+	width: 125px;
+	border-radius: 5px;
+	border: 0;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: .4s;
+}
+
+#addressForm button:hover{
+    background-color: #00ffea;
+}
+
+
+#addressLabel{
+	font-size: 1em;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 250px;
+	
+}
+
+#addressLabel i{
+	margin-left: 10px;
+}
+
+#accountModifyForm{
+  background-color: white;
+  padding: 40px 30px 0px 30px;
+  border-radius: 10px;
+  width: 400px;
+}
+
+#accountModifyForm input[type=text],
+#accountModifyForm input[type=email],
+#accountModifyForm input[type=password]{
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    padding: 10px 10px;
+    margin: 15px -10px;
+}
+
+#accountModifyForm button{
+    cursor: pointer;
+    color: #454545;
+    font-size: 16px;
+    text-transform: uppercase;
+    background-color: #00ddc9;
+	margin: 24px 0px;
+	padding: 10px 0px;
+	width: 125px;
+	border-radius: 5px;
+	border: 0;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: .4s;
+}
+
+#accountModifyForm button:hover{
+    background-color: #00ffea;
+}
+
+
+#accountModifyLabel{
+	font-size: 1em;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 250px;
+	
+}
+#accountModifyLabel i{
+	margin-left: 10px;
+}
+
+
+
+
+#addressOrderForm{
+  background-color: white;
+  padding: 40px 30px 0px 30px;
+  border-radius: 10px;
+  width: 400px;
+}
+
+#addressOrderForm input[type=text],
+#addressOrderForm input[type=email],
+#addressOrderForm input[type=password]{
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    padding: 10px 10px;
+    margin: 15px -10px;
+}
+
+#addressOrderForm button{
+    cursor: pointer;
+    color: #454545;
+    font-size: 16px;
+    text-transform: uppercase;
+    background-color: #00ddc9;
+	margin: 24px 0px;
+	padding: 10px 0px;
+	width: 125px;
+	border-radius: 5px;
+	border: 0;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: .4s;
+}
+
+#addressOrderForm button:hover{
+    background-color: #00ffea;
+}
+
+#address-heading{
+	margin-top: 20px;
+}
+
+#finish-order{
+	    cursor: pointer;
+    color: #454545;
+    font-size: 16px;
+    text-transform: uppercase;
+    background-color: #00ddc9;
+	margin: 24px 0px;
+	padding: 10px 0px;
+	width: 125px;
+	border-radius: 5px;
+	border: 0;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: .4s;
+	
+}
+
+#finish-order:hover{
+    background-color: #00ffea;
+}
+
+
+#displayResult input[type=radio]{
+	display: inline;
+}
+
+.address-radio{
+	display: inline-block;
+	margin-bottom: 10px;
+}
 
 

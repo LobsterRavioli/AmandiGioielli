@@ -5,9 +5,10 @@
  
  	String error = (String)request.getAttribute("error");
  	
+ 	String title = (String)request.getAttribute("title");
  	if(products == null && error == null) 
  	{
- 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/ProductControl"));
+ 		response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/ProductControl?page=catalogue"));
  		return;
  	}
  %>   
@@ -30,49 +31,59 @@
 </head>
 <body>
 	<%@include file="../fragments/header.jsp" %>
-	<h2>Catologo</h2>
-	<table class="product-table">
-		<tr>
-			<th style="width: 20%">Nome</th>
-			<th style="width: 50%">Descrizione</th>
-			<th style="width: 5%">Prezzo</th>
-			<th style="width: 15%"></th>	
-			<th style="width: 15%">Immagine</th>
-		</tr>
-		<%
-		if(products != null && products.size() > 0) 
-		{
-			Iterator<?> it = products.iterator();
-			while(it.hasNext())
-			{
-			ProductBean bean = (ProductBean) it.next();
-				
-	%>
-				<tr>
-					<td><%=bean.getName()%></td>
-					<td><%=bean.getDescription()%></td>
-					<td><%=bean.getPrice() + ((bean.getTaxRate() / 100) * bean.getPrice())%> &#8364;</td>
+	
+	
 
-					<td>
-						<a href="<%=response.encodeURL(request.getContextPath()+"/ProductControl?action=details&id=" + bean.getCode())%>" class="catalogue-icons">
-							<img src="<%=request.getContextPath()%>/images/product-info.png" alt="Get additional informations">
-						</a>
-						<a href="<%=response.encodeURL(request.getContextPath()+"/ProductControl?action=delete&id=" + bean.getCode())%>" class="catalogue-icons">
-							<img src="<%=request.getContextPath()%>/images/remove-from-catalogue.png" alt="Remove product from catalogue">
-						</a>
-						<a href="<%=response.encodeURL(request.getContextPath()+"/ProductControl?action=addCart&id=" + bean.getCode())%>" class="catalogue-icons">
-							<img src="<%=request.getContextPath()%>/images/add-to-cart.png" alt="Add product to shopping cart">
-						</a>	
-					</td>
-					<td>
-						<img src="<%=bean.getUrl()%>">
-					</td>
-				</tr>
-	<%
+
+	<div class="big-container">
+	
+		
+		<%
+			if(title == null)
+			{
+		%>
+				<h2 class="heading-center">Catalogo</h2>
+		<% 
 			}
-		}
-	%>
-	</table>
+			else
+			{
+		%>	
+				<h2 class="heading-center"><%=title%></h2>
+		<%
+			}
+		%>	
+			
+		
+
+		<span class="line-separator"></span>
+		<div class="row">
+			<%
+			if(products != null && products.size() > 0) 
+			{
+				Iterator<?> it = products.iterator();
+				while(it.hasNext())
+				{
+					ProductBean bean = (ProductBean) it.next();
+					
+		%>
+	
+						<div class="col-4">
+							<a href="<%=request.getContextPath()%>/ProductControl?action=details&id=<%=bean.getCode()%>"><img src="<%=bean.getUrl()%>"></a>
+							<h4><%=bean.getName()%></h4>
+							<div class="product-details">
+								<p><%=bean.getRealPriceString()%> &euro;</p>
+								<a href="<%=request.getContextPath()%>/ProductControl?action=details&id=<%=bean.getCode()%>" class="add-cart-home">Dettagli</a>
+							</div>
+						</div>
+							
+						<%
+				}
+			}
+						%>
+		</div>
+
+	</div>
+
 	<br>
 	<%
 		String message = (String)request.getAttribute("message");

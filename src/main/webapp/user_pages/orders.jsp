@@ -32,55 +32,58 @@
 </head>
 <body>
 	<%@include file="../fragments/header.jsp" %>
-	<h2>Ordini Effettuati</h2>
-	<table class="product-table">
-		<tr>
-			<th style="width: 20%">Id ordine</th>
-			<th style="width: 60%">Prezzo</th>
-			<th style="width: 5%">Dettagli</th>
-			<th style="width: 15%"></th>	
-		</tr>
-		<%
-		if(orders != null && orders.size() > 0) 
-		{
-			Iterator<?> it = orders.iterator();
-			while(it.hasNext())
+	<%@ include file="../fragments/user_sidebar.jsp"%>
+	
+	<div class="welcome-dashboard">
+		<h2>Ordini Effettuati</h2>
+		<table class="product-table">
+			<tr>
+				<th>Id ordine</th>
+				<th>Data</th>
+				<th>Prezzo</th>
+				<th></th>	
+			</tr>
+			<%
+			if(orders != null && orders.size() > 0) 
 			{
-				OrderBean bean = (OrderBean) it.next();
-				
-	%>
-				<tr>
-					<td><%=bean.getId()%></td>
-					<td><%=bean.getTotalPrice()%></td>
-
-					<td>
-						<a href="<%= request.getContextPath() + "/DashBoard?scope=orders&order_id=" + bean.getId() %>" class="catalogue-icons">
-							<img src="<%=request.getContextPath()%>/images/product-info.png" alt="Get additional informations">
-						</a>
-					</td>
-					<td>
-				</tr>
-	<%
+				Iterator<?> it = orders.iterator();
+				while(it.hasNext())
+				{
+					OrderBean bean = (OrderBean) it.next();
+					
+		%>
+					<tr>
+						<td><%=bean.getId()%></td>
+						<td><%=bean.getData()%></td>
+						<td><%=bean.getTotalPrice()%> &euro;</td>
+						<td>
+							<a href="<%= request.getContextPath() + "/DashBoard?scope=orders&order_id=" + bean.getId() %>" class="catalogue-icons">
+								<i class="fas fa-info-circle"></i>
+							</a>
+						</td>
+					</tr>
+		<%
+				}
 			}
-		}
-	%>
-	</table>
-	<br>
-	<%
-		String message = (String)request.getAttribute("message");
-		if(message != null && !message.equals("")) 
-		{
-	%>
-			<p style="color: white; margin-left: auto; margin-right: auto; background-color: green; padding: 5px;"><%=message %></p>
-	<%
-		}
-		if(error != null && !error.equals("")) 
-		{
-	%>
-			<p style="color: white; margin-left: auto; margin-right: auto; background-color: red; padding: 5px;">Errore: <%= error%></p>
-	<%
-		}
-	%>	
+		%>
+		</table>
+		<br>
+		<%
+			String message = (String)request.getAttribute("message");
+			if(message != null && !message.equals("")) 
+			{
+		%>
+				<p style="color: white; margin-left: auto; margin-right: auto; background-color: green; padding: 5px;"><%=message %></p>
+		<%
+			}
+			if(error != null && !error.equals("")) 
+			{
+		%>
+				<p style="color: white; margin-left: auto; margin-right: auto; background-color: red; padding: 5px;">Errore: <%= error%></p>
+		<%
+			}
+		%>	
+	</div>
 	
 	<%@include file="../fragments/footer.jsp" %>
 		

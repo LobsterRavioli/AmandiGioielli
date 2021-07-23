@@ -1517,4 +1517,22 @@ tbody{
 	margin-bottom: 10px;
 }
 
+#paymentForm{
+  background-color: white;
+  padding: 40px 30px 0px 30px;
+  border-radius: 10px;
+  width: 400px;
+}
 
+#paymentForm input[type=text],
+#paymentForm input[type=email],
+#paymentForm input[type=password]{
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    padding: 10px 10px;
+    margin: 15px -10px;
+}

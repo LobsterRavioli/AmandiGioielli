@@ -57,7 +57,23 @@
 			}
 		%>
 	</table>
-	
+	<form action="" id="paymentForm">
+               <h3>Pagamento</h3>
+               <label for="cname">Proprietario Carta</label>
+               <input type="text" id="cname" name="cardname" placeholder="Mario Rossi"><br>
+               <label for="ccnum">Numero carta</label>
+               <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444"><br>
+               <label for="expmonth">Mese di scadenza</label>
+               <input type="text" id="expmonth" name="expmonth" placeholder="Settembre"><br>
+
+
+                  <label for="expyear">Anno di scadenza</label>
+                  <input type="text" id="expyear" name="expyear" placeholder="2018"><br>
+
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" name="cvv" placeholder="352"><br>
+              <br>
+    </form>
 	<%
 	if(addresses != null)
 		if(addresses.size() > 0){
@@ -137,6 +153,8 @@
 			  <button type="submit">Registra</button>
 
 		</form>
+		
+
 
 	<%
 		}

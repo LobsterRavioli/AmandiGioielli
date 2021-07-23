@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,beans.*"%>
  <%
  	Collection<?> categories = (Collection<?>) request.getAttribute("categories");
@@ -22,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorie</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css" type = "text/css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/admin_style.css" type = "text/css">
    	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 </head>
 <body>
@@ -31,8 +31,8 @@
 	<%@include file = "../fragments/admin_header.jsp"%>
 	
 
-<div class = main-content>
-	<div class = "cat-content">
+<div class = "c-content">
+	<div class = "ctg-content">
 		<h2>Categorie</h2>
 		<table class="product-table">
 			<tr>
@@ -40,7 +40,13 @@
 				<th style="width: 60%">Descrizione</th>
 				<th style="width: 15%"></th>	
 			</tr>
-			<button><a href= <%=request.getContextPath()+"/admin_pages/create_category.jsp"%>>Crea nuova categoria </a></button>
+			
+			<div class = "form2-content">
+				<form action = "<%=request.getContextPath()%>/admin_pages/create_category.jsp">
+					<button class = "s-btn2" type = "submit">Crea una nuova categoria</button>
+				</form>
+			</div>
+			
 			<%
 			if(categories != null && categories.size() > 0) 
 			{

@@ -9,16 +9,8 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/admin_style.css" type="text/css">
 </head>
 <body>
-	<input type = "checkbox" id = "nav-toggle">
+	
 	<div class = "sidebar">
-		<div class = sidebar_brand>
-			<h1>
-				<span class = "las la-table">
-					<span class = "lbl">Menu</span>
-				</span>
-			</h1>
-		</div>
-		
 		<div class = "sidebar-menu">
 			<ul>
 				<li>

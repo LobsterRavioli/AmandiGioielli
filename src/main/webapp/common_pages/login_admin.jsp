@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Amandi Gioielli - Login Admin</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" type="text/css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/admin_login.css" type="text/css">
    	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/all.min.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,24 +14,22 @@
 	<script src="<%=request.getContextPath()%>/js/validation.js"></script>
 </head>
 <body>
-	
-	<form action="<%=request.getContextPath()%>/LoginAdmin" method="post" id="loginAdminForm"> 
-		<fieldset>
-		     <legend>Accesso al pannello admin</legend>
-		     <label for="username">Login</label>
-		     <input id="username" type="text" name="username" placeholder="enter username"> 
-		     <br>   
-		     <label for="password">Password</label>
-		     <input id="password" type="password" name="password" placeholder="enter password"> 
-		     <br>
-		     <input type="submit" value="Login"/>
-		     <input type="reset" value="Reset"/>
-		</fieldset>
-	</form> 
-	
-	<div>
-		<p id="loginAdminLabel"></p>
-	</div>
 
+		<h2 class="heading-center login-page">Admin Login</h2>
+        <span class="line-separator"></span>
+        <div class="login">
+            <form action="<%=request.getContextPath()%>/LoginAdmin" method="post" id="loginAdminForm">
+
+                <input type="text" name="username" id="username" placeholder="Username" required="required"><br>
+                   <input type="password"  name="password" id="password" placeholder="Password" required="required"><br>
+                <button type="submit">Accedi</button>
+
+            </form>
+        </div>
+        <br>
+        <div>
+            <p id="loginAdminLabel" style="color:red"></p>
+        </div>
+        
 </body>
 </html>

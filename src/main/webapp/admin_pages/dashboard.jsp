@@ -31,7 +31,7 @@
 	<%@include file = "../fragments/admin_menu.jsp"%>
 	<%@include file = "../fragments/admin_header.jsp"%>
 
-<div class = "main-content">
+<div class = "dash-content">
 	<div class = "content">
 		<div class ="cards">
 			<div class ="card-single">

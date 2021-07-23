@@ -14,20 +14,18 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/admin_style.css" type="text/css">
 </head>
 <body>
-<div class = "main-content">
+<div class = "header-content">
 		<header>
 			<h2>
-				<label for = "nav-toggle">
-					<span class = "las la-bars"></span>
-				</label>
-				
-				Admin Header	
+				Admin-Dashboard
 			</h2>
 			
 			<div class = "user-wrapper">
-				<img src ="" width = "40px" height = "40px" alt = "">
 				<div>
-					<h4>Admin_name</h4>
+					<a href="<%=request.getContextPath()%>/common_pages/home.jsp"><i class="las la-home"></i>Home</a>
+					<br>
+					<h4><%=session.getAttribute("adminName")%></h4>			
+					<a href="<%= request.getContextPath() + "/LogOutControl"%>"><i class="las la-sign-out-alt"></i>Logout</a>
 				</div>
 			</div>
 		</header>

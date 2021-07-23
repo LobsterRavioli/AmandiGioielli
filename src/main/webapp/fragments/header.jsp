@@ -119,7 +119,7 @@
 			%>
 			<div class="shopping-bag">
 				<a href="<%=request.getContextPath()%>/common_pages/cart.jsp"><img src="<%=request.getContextPath()%>/images/icons/shopping-bag.png" title="Carrello"></a>
-				<span class="cart-basket">
+				<span class="cart-basket" id="cartSize">
 					<%=size%>
 				</span>
 			</div>

@@ -73,7 +73,7 @@ $(document).ready(function(){
 	
 	$("#loginAdminForm").submit(function(event){
 			if(!checkAdmin($("#loginAdminForm input[name=username]"))) {
-			$("#loginAdminLabel").html("Inserisci un username valido.");
+			$("#loginAdminLabel").html('Dati inseriti non validi<i class="fas fa-exclamation-triangle"></i>');
 			return false;
 		}
 	});

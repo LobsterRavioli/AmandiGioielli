@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import com.google.gson.Gson;
+
 import beans.Cart;
 import beans.CategoryBean;
 import beans.ProductBean;
@@ -79,26 +81,7 @@ public class ProductControl extends HttpServlet
 							.getRequestDispatcher("/common_pages/product_details.jsp");
 					dispatcher.forward(request, response);
 					return;
-				} else if (action.equals("addCart"))
-				{
-					String id = request.getParameter("id");
-					int qty = cart.getProductQuantity(Integer.parseInt(id));
-					ProductBean product = new ProductBean();
-					product.setCode(Integer.parseInt(id));
-
-					ProductBean bean = model.doRetrieve(product);
-
-					if (bean != null && !bean.isEmpty() && (bean.getQuantity() - qty) - 1 >= 0)
-					{
-						cart.addItem(bean);
-						request.setAttribute("message", "Prodotto " + bean.getName() + " aggiunto al carrello.");
-					} else
-					{
-						request.setAttribute("message", "Prodotto " + bean.getName() + " non disponibile.");
-					}
-				}
-
-				else if (action.equals("insert"))
+				} else if (action.equals("insert"))
 				{
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");
@@ -179,7 +162,41 @@ public class ProductControl extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doGet(request, response);
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		ProductDAO model = new ProductDAO(ds);
+		HttpSession session = request.getSession();
+		boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+		Cart cart = (Cart) session.getAttribute("cart");
+		if (ajax)
+		{
+			try
+			{
+				String id = request.getParameter("id");
+				int qty = cart.getProductQuantity(Integer.parseInt(id));
+				ProductBean product = new ProductBean();
+				product.setCode(Integer.parseInt(id));
+				ProductBean bean = model.doRetrieve(product);
+				String json;
+				if (bean != null && !bean.isEmpty() && (bean.getQuantity() - qty) - 1 >= 0)
+				{
+					cart.addItem(bean);
+
+					request.removeAttribute("cart");
+					request.setAttribute("cart", cart);
+					json = new Gson().toJson(cart.getTotalQuantity());
+					response.getWriter().write(json);
+
+				} else
+				{
+					json = new Gson().toJson(cart.getTotalQuantity());
+					response.getWriter().write(json);
+				}
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }

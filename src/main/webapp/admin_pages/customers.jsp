@@ -37,9 +37,10 @@
 	<%@include file="../fragments/admin_menu.jsp" %>
 	<%@include file="../fragments/admin_header.jsp" %>
 	
-<div class = "main-content">
+<div class = "cust-content">
+	<h2>Clienti</h2>
 	<div class = "table-content">
-		<h2>Clienti</h2>
+		
 			<table id = "myTable">
 					<tr>
 						<th style="width: 20%">Id utente</th>
@@ -76,28 +77,6 @@
 			<br>
 	</div>
 </div>
-
-
-
-<script>
-	$(document).ready(function(){
-		
-		$.ajax({
-			async: true,
-			url: "AdminCostumerControl",
-			type: "POST",
-			datatType: "json",
-			success: function(data)
-			{
-				$("#myTable").DataTable()
-				{
-				}
-			}
-					
-			},
-			timeout: 3000,
-		});
-</script>
 
 </body>
 </html>

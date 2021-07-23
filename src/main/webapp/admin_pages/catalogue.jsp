@@ -23,8 +23,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amandi Gioielli - Catalogo</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css" type = "text/css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/admin_style.css" type = "text/css">
    	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    	<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
@@ -36,25 +37,27 @@
 	
 	<div class = "cat-content">
 	
-		<div class = "search-wrapper">
+		
+		<form class="search-wrapper" action="<%=request.getContextPath()%>/Search" method="POST">
 			<span class = "las la-search"></span>
-			<input id = "srch" type = "text" placeholder = "Search here"/>
-		</div>
-		
-		<h2>Catalogo</h2>
-		<a href= "<%=request.getContextPath()%>/admin_pages/create_product.jsp">Crea nuovo prodotto </a>
-		
-		<form class="search-bar-admin" action="<%=request.getContextPath()%>/Search" method="POST">
 			<input type="text" name="search">
 			<input type="hidden" name="action" value="admin">
-			<input type="submit">
+			<button class = "send" type="submit" >Invia</button>
 		</form>
+		
+		
+		<h2>Catalogo</h2>
+		<div class = "form2-content">
+			<form action = "<%=request.getContextPath()%>/admin_pages/create_product.jsp">
+				<button class = "s-btn2" type = "submit">Crea nuovo prodotto</button>
+			</form>
+		</div>
 		<table class="product-table">
 		<thead>
 			<tr>
 				<th style="width: 20%">Nome</th>
-				<th style="width: 60%">Descrizione</th>
-				<th style="width: 5%">Prezzo</th>
+				<th style="width: 55%">Descrizione</th>
+				<th style="width: 25%">Prezzo</th>
 				<th style="width: 15%">Dettagli</th>	
 			</tr>
 		</thead>
@@ -75,13 +78,13 @@
 						<td><%=bean.getName()%></td>
 						<td><%=bean.getDescription()%></td>
 						<td><%=bean.getPrice() + ((bean.getTaxRate() / 100) * bean.getPrice())%> &#8364;</td>
-	
-						<td>
+					
+						<td id = "mod">
 							<a href="<%=request.getContextPath()+"/admin_pages/modify_product.jsp?id=" + bean.getCode()%>" class="catalogue-icons">
 								Modifica
 							</a>
 							<a href="<%=response.encodeURL(request.getContextPath()+"/AdminProductControl?action=delete&id=" + bean.getCode())%>" class="catalogue-icons">
-								<img src="<%=request.getContextPath()%>/images/remove-from-catalogue.png" alt="Remove product from catalogue">
+								<img id = "img" src="<%=request.getContextPath()%>/images/remove-from-catalogue.png" alt="Remove product from catalogue">
 							</a>	
 						</td>
 					</tr>
@@ -110,7 +113,6 @@
 			}
 		%>	
 		<br>
-		<h2>Inserisci un nuovo prodotto nel catalogo</h2>
 
 		<%
 		if(product != null && !product.isEmpty()) 
@@ -128,13 +130,11 @@
 		
 		var timer = null;
 		 $("#srch").keyup(function(){
-
 		        // preleva la stringa inserita dall'utente nella barra di ricerca
 		        var search = $(this).val();
 				
 		        // nel caso l'utente abbia inserito/cancellato un carattere, annullo il timeout precedente (posso farlo perchè timer è fuori da questo codeblock)
 		        clearTimeout(timer);
-
 		        // la richiesta ajax viene inviata dopo 500 ms (evito troppe richieste verso il server)
 		        timer = setTimeout(function() {
 		            if(search != ""){
@@ -166,6 +166,5 @@
 		    });
 	});
 </script>
-
 </body>
 </html>

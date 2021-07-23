@@ -18,6 +18,12 @@
 	<script src="<%=request.getContextPath()%>/js/validation.js"></script>
 </head>
 <body>
+
+<%@include file = "../fragments/admin_menu.jsp"%>
+	<%@include file = "../fragments/admin_header.jsp"%>
+		
+<div class = "create_prd">
+	<div class = "form2-content">
 	<form action=<%= request.getContextPath() + "/RegistrationProductControl"%> enctype="multipart/form-data" method="POST">
 			
 				<input type="hidden" name="action" value="insert">
@@ -32,24 +38,26 @@
 				<textarea id="shortDescription" name="shortDescription" maxlength="100" rows="3"></textarea><br>
 				
 
-				<label for="price">Prezzo:</label><br>
-				<input id="price" name="price" type="number" min="0" ><br>
 				
-				<label for="quantity">Quantità:</label><br>
-				<input id="quantity" name="quantity" type="number" min="0"><br>		
+				<input id="price" name="price" type="number" min="0" placeholder = "Prezzo"><br>
 				
-				<label for="discount">Sconto:</label><br>
-				<input id="discount" name="discount" type="number" min="0"  required><br>
+				<input id="quantity" name="quantity" type="number" min="0" placeholder = "Quantità"><br>		
 				
-				<label for="taxRate">Tax Rate:</label><br>
-				<input id="taxRate" name="taxRate" type="number" min="0"  required><br>
-				<label for="file">Immagini da caricare:</label>
-				<input type="file" name="file" id="file"><br>	
-					<select id="format" name="format" size="2" required="required">
-					  <option value=".png">.png</option>
-					  <option value=".jpeg">.jpeg</option>
-					</select>	
-				<button type="submit">Crea prodotto</button>
+				<input id="discount" name="discount" type="number" min="0" placeholder = "Sconto" required><br>
+				
+				<input id="taxRate" name="taxRate" type="number" min="0"  placeholder = "Tax Rate" required><br>
+				
+				<div class = "load-f">
+					<input class = "s-btn2" type="file" name="file" id="file" placeholder = "Scegli un file">
+						<select id="format" name="format" required="required">
+						  <option value=".png">.png</option>
+						  <option value=".jpeg">.jpeg</option>
+						</select>	
+					<br><br>
+					<button class = "s-btn2" type="submit">Crea prodotto</button>
+				</div>
 	</form>
+	</div>
+</div>
 </body>
 </html>

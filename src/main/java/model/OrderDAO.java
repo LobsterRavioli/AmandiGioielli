@@ -278,7 +278,12 @@ public class OrderDAO implements GenericDAO<OrderBean>
 				model.doSave(product);
 				ProductBean temp = new ProductBean();
 				temp.setCode(product.getProductId());
+				System.out.println("tempppp" + temp.getCode());
+				System.out.println("tempppp1 " + temp.getQuantity());
 				ProductBean productDB = productModel.doRetrieve(temp);
+				System.out.println("dbbbbb" + productDB.getCode());
+				System.out.println("dbbbbbb1 " + productDB.getQuantity());
+
 				productDB.setQuantity(productDB.getQuantity() - product.getQuantity());
 				productModel.doUpdate(productDB);
 				System.out.println("Fine ciclo");

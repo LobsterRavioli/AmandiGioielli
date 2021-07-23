@@ -44,14 +44,14 @@
 						%>
 								<p class="available">Disponibile<i class="fas fa-check"></i></p> 
 			
-								<a href="<%=request.getContextPath()%>/ProductControl?action=addCart&id=<%=product.getCode()%>">ACQUISTA</a>
+								<button  value="<%=product.getCode()%>" class="addCart">ACQUISTA</button>
 						<%
 							}
 							else
 							{
 						%>		
 							<p class="available">Non disponibile<i class="fas fa-times"></i></p>
-							<a href="#" class="product-out-of-stock">ACQUISTA</a>
+							<button  class="product-out-of-stock">ACQUISTA</button>
 						<%	
 							}
 						%>
@@ -81,7 +81,35 @@
 		</div>
 	</div>
 
-	
+	<script>
+
+    $(document).ready(function() {
+
+        $(".addCart").click(function(){
+            var val = $(this).val();
+            $.ajax({
+                async: true,
+                url: "./ProductControl",
+                type: "POST",
+                datatType: "json",
+                data: {id : val},
+                success: function(data){
+
+                    var span = document.getElementById('cartSize');
+                    while( span.firstChild ) {
+                        span.removeChild( span.firstChild );
+                    }
+                    span.appendChild(document.createTextNode(data));
+
+
+                }
+            },0);
+
+        });
+
+    });
+
+</script>
 	
 	<%@include file="../fragments/footer.jsp" %>
 </body>

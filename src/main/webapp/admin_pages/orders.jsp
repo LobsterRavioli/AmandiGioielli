@@ -6,7 +6,6 @@
  	Collection<?> users = (Collection<?>) request.getAttribute("users");
  
  	String error = (String)request.getAttribute("error");
- 	
 
  	
  %>   
@@ -23,86 +22,93 @@
    	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 </head>
 <body>
+
+<%@include file = "../fragments/admin_menu.jsp"%>
+<%@include file = "../fragments/admin_header.jsp"%>
 	
-		<form action="<%= request.getContextPath()%>/AdminOrderControl" method="POST">	
-				<p>Ricerca per data</p>
+	
+<div class = "main-content">
+		<div class = "form-content">
+			<form action="<%= request.getContextPath()%>/AdminOrderControl" method="GET">	
+				<p class = "research">Ricerca per data</p>
 				<br>
 				<label for="start-date">Da</label>
 				<input type="date" id="start-date" name="start-date">
 				<label for="end-date">a</label>
 				<input type="date" id="end-date" name="end-date">
-				<br><br>
-				<input type="submit" name="submit" value="date">
+				
+				<button class="s-btn" type="submit" name="submit">Cerca</button>
 			</form>
-			<br>
-			<form action="<%= request.getContextPath()%>/AdminOrderControl" method="POST">	
-				<p>Ricerca per codice utente</p>
+
+			<form action="<%= request.getContextPath()%>/AdminOrderControl" method="GET">	
+				<p class = "research">Ricerca per codice utente</p>
 				<br>
 				<label for="customer-id">ID: </label>
 				<input type="text" id="customer-id" name="customer-id" value="">
-				
-				<br><br>
-				<input type="submit" name="submit" value="id">
+				<button class="s-btn" type="submit" name="submit">Cerca</button>
 			</form>
-	
-<div class = "main-content">
-	<div class = "table-content">
-		<h2>Ordini</h2>
-		<table class="product-table">
-			<tr>
-				<th style="width: 30%">Id utente</th>
-				<th style="width: 20%">Id ordine</th>
-				<th style="width: 60%">Prezzo</th>
-				<th style="width: 5%">Dettagli</th>
-				<th style="width: 15%"></th>	
-			</tr>
-			<%
-			if(orders != null && orders.size() > 0) 
-			{
-			    
-			    Iterator<?> it = orders.iterator();
-
-					while(it.hasNext())
-					{
-					    OrderBean bean = (OrderBean) it.next();
-						
-			%>
-						<tr>
-							<td><%=bean.getUserId()%></td>
-							<td> <%=bean.getId()%></td>
-							<td><%=bean.getTotalPrice()%></td>
-							<td><%=bean.getStatus()%></td>
+		</div>
 		
-							<td>
-								<a href="<%= request.getContextPath() + "/AdminOrderControl?order_id=" + bean.getId() %>" class="catalogue-icons">
-									<img src="<%=request.getContextPath()%>/images/product-info.png" alt="Get additional informations">
-								</a>
-							</td>
-							<td>
-						</tr>
-			<%
-					
+		<div class = "table-content">
+			
+			<h2>Ordini</h2>
+			
+			<table class="product-table">
+				<tr>
+					<th>Id utente</th>
+					<th>Id ordine</th>
+					<th>Prezzo</th>
+					<th>Data</th>
+					<th></th>	
+				</tr>
+				<%
+				if(orders != null && orders.size() > 0) 
+				{
+				    
+				    Iterator<?> it = orders.iterator();
+	
+						while(it.hasNext())
+						{
+						    OrderBean bean = (OrderBean) it.next();
+							
+				%>
+							<tr>
+								<td><%=bean.getUserId()%></td>
+								<td> <%=bean.getId()%></td>
+								<td><%=bean.getTotalPrice()%> &euro;</td>
+								<td><%=bean.getData()%></td>
+			
+								<td>
+									<a href="<%=request.getContextPath()%>/AdminOrderControl?order_id=<%=bean.getId()%>" class="catalogue-icons">
+										<img src="<%=request.getContextPath()%>/images/product-info.png" alt="Get additional informations">
+									</a>
+								</td>
+								<td>
+							</tr>
+				<%
+						
+					}
 				}
-			}
+				%>
+			</table>
+			
+			<br>
+			<%
+				String message = (String)request.getAttribute("message");
+				if(message != null && !message.equals("")) 
+				{
 			%>
-		</table>
-		<br>
-		<%
-			String message = (String)request.getAttribute("message");
-			if(message != null && !message.equals("")) 
-			{
-		%>
-				<p style="color: white; margin-left: auto; margin-right: auto; background-color: green; padding: 5px;"><%=message %></p>
-		<%
-			}
-			if(error != null && !error.equals("")) 
-			{
-		%>
-				<p style="color: white; margin-left: auto; margin-right: auto; background-color: red; padding: 5px;">Errore: <%= error%></p>
-		<%
-			}
-		%>	
-	</div>
+					<p style="color: white; margin-left: auto; margin-right: auto; background-color: green; padding: 5px;"><%=message %></p>
+			<%
+				}
+				if(error != null && !error.equals("")) 
+				{
+			%>
+					<p style="color: white; margin-left: auto; margin-right: auto; background-color: red; padding: 5px;">Errore: <%= error%></p>
+			<%
+				}
+			%>	
+		</div>
 </div>
 
 </body>

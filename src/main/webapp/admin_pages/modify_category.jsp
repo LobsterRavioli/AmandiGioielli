@@ -2,8 +2,9 @@
 	<%@page import="beans.CategoryBean"%>
 <%@page import="java.util.Collection"%>
 <%@page import="beans.ProductBean"%>
-<script type="text/javascript"></script>
+	<script type="text/javascript"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 	
 <%
 	String id = (String)request.getParameter("id");
@@ -26,14 +27,17 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/admin_style.css" type="text/css">
    	<link rel='shortcut icon' type='image/x-icon' href="<%=request.getContextPath()%>/images/favicon.ico"/>
 	<title>Modifica Categoria</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/admin_styles/style.css" type="text/css">
 </head>
 <body>
-		<form action="<%=response.encodeURL("CategoryModifyControl?id=" + category.getId())%>" method="POST">
+		<%@include file = "../fragments/admin_menu.jsp"%>
+		<%@include file = "../fragments/admin_header.jsp"%>
+		<form action="<%=response.encodeURL("CategoryModifyControl?id=" + category.getId())%>" method="POST" id="modify-category">
 			
 				<input type="hidden" name="action" value="insert">
 				
 				<label for="description">Descrizione Categoria:</label><br>
-				<textarea id="description" name="description" maxlength="100" rows="3"  required><%=category.getDescription() %></textarea><br>
+				<textarea id="description" name="description" maxlength="100" rows="3"><%=category.getDescription() %></textarea><br>
 				<button type="submit">Modifica</button>
 		</form>
 				

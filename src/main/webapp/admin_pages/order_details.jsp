@@ -1,6 +1,6 @@
 <%@page import="beans.*"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*,model.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.*,model.*"%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -8,25 +8,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dettagli prodotto</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/admin_styles/style.css" type="text/css">
 </head>
 <body>
-	<%@include file="../fragments/header.jsp" %>
+
+	<%@include file="../fragments/admin_header.jsp" %>
+	<%@include file="../fragments/admin_menu.jsp" %>
 
 	<%	
 		Collection<OrderDetailBean> ordersDetail = (Collection<OrderDetailBean>) request.getAttribute("ordersDetails");
 		LinkedList<OrderDetailBean> list =(LinkedList) ordersDetail;
 	%>
 
+<div class = "form-content details-admin">
 	<h2>Dettagli ordine</h2>
 	<table>
 		<tr>
-			<th>Codice</th>
+			<th>Id</th>
 			<th>Nome</th>
-			<th>Descrizione</th>
 			<th>Prezzo</th>
-			<th>Iva</th>
-			<th>Quantit‡</th>
+			<th>Quantit√†</th>
 			<th> </th>
 		</tr>
 		<%
@@ -35,21 +36,19 @@
 				
 		%>
 		<tr>
+			<td><%= detail.getId() %></td>
 			<td><%= detail.getName() %></td>
-			<td><%= detail.getDiscount() %></td>
-			<td><%= detail.getPrice()%></td>
+			<td><%= detail.getRealPriceString()%> &euro;</td>
 			<td><%= detail.getQuantity()%></td>
 			<td>								
 			</td>
 		</tr>
-	</table>
+
 	<%
 			}
 		}
 	%>
-	
-	<div class="spacer-footer"><br> </div>
-	
-	<%@include file="../fragments/footer.jsp" %>
+	</table>
+</div>
 </body>
 </html>

@@ -103,14 +103,7 @@ public class OrderBean
 
 	public void addItem(OrderDetailBean bean)
 	{
-		if (items.contains(bean))
-		{
-			OrderDetailBean product = (OrderDetailBean) items.get(items.indexOf(bean));
-			product.setQuantity(product.getQuantity() + 1);
-			return;
-		}
 
-		((OrderDetailBean) bean).setQuantity(1);
 		items.add(bean);
 	}
 

@@ -1,8 +1,3 @@
-<p align="center">
-  <a href="" rel="noopener">
- <img width=200px height=100px src="./src/main/webapp/images/logo_readme.png" alt="AmandiGioielli logo"></a>
-</p>
-
 <h3 align="center">AmandiGioielli</h3>
 
 <p align="center"> A dynamic web application designed to showcase and sell jewelry, providing a comprehensive platform for product, order, and purchase management.</p>

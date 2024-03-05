@@ -46,7 +46,7 @@ Follow these steps:
 9. Right click on the project > Run As > Run on Server
 
 ## 📖 Docs  <a name = "documentation"></a>
-The project's documentation can be found in deliverables folder.
+The project's documentation can be found in documentation folder.
 
 
 ## ⛏️ Built Using <a name = "built_using"></a>
@@ -55,16 +55,13 @@ The project's documentation can be found in deliverables folder.
 - **Javax** - Used for creating web components in Java.
 - **Maven** - Dependency Management.
 - **HTML/CSS** - The programming languages used for front-end development.
-- **Bootstrap** - Front-end framework.
 - **SQL & MySQL** - Used for database management and data manipulation.
-- **JUnit** - Used for unit and integration testing.
-- **Selenium** - Used for system testing to automate web applications for testing purposes.
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- Tommaso Sorrentino - [Tommaso Sorrentino](#)
-- Alessandro  - Developer - [Alessandro Cannavale](#)
-- Francesco - Developer - [Francesco Monzillo](#)
+- Tommaso Sorrentino - [Tommaso Sorrentino]
+- Dario Mazza  - Developer - [Alessandro Cannavale]
+- Nicolo Delugo - Developer - [Francesco Monzillo]
 
 
 
